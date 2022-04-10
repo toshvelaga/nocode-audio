@@ -20,6 +20,11 @@ function AudioWidget() {
   const [backgroundColor, setBackgroundColor] = useState('#ff0000')
   const [progressBarColor, setProgressBarColor] = useState('#fff')
 
+  const [mainTitle, setmainTitle] = useState('The Story of Aaron Schwartz')
+  const [subtitle, setsubtitle] = useState(
+    'Hacktivism and the limits of Open Source'
+  )
+
   const audioRef = useRef()
   const imgUrl = 'https://i.ibb.co/98ck5mT/aaron.jpg'
   const audio = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
@@ -136,27 +141,23 @@ function AudioWidget() {
         }}
         className='embed-audio-container'
       >
-        <Draggable>
-          <img
-            width='150px'
-            draggable='false'
-            className='podcast-image'
-            src={imgUrl}
-            style={{ borderRadius: '5px' }}
-          />
-        </Draggable>
-        {/* <img width='200px' className='podcast-image' src={imgUrl} /> */}
+        <img
+          // width='150px'
+          draggable='false'
+          className='podcast-image'
+          src={imgUrl}
+          style={{ borderRadius: '5px' }}
+        />
         <div className='podcast-info'>
           <h3 contenteditable='true' style={{ marginBottom: '.3em' }}>
-            Episode Title
+            {mainTitle}
           </h3>
           <p
             style={{
-              marginBottom: '.3em',
-              fontWeight: 200,
+              fontWeight: 400,
             }}
           >
-            podcast title
+            {subtitle}
           </p>
 
           <div>
