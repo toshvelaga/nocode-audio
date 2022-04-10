@@ -20,15 +20,17 @@ function AudioWidget() {
 
   const [backgroundColor, setBackgroundColor] = useState('#1b1b1b')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
+  const [fontColor, setfontColor] = useState('#1bb953')
 
   const [mainTitle, setmainTitle] = useState('The Story of Aaron Schwartz')
   const [subtitle, setsubtitle] = useState(
     'Hacktivism and the limits of Open Source'
   )
-
+  const [imgUrl, setimgUrl] = useState('https://i.ibb.co/98ck5mT/aaron.jpg')
+  const [audio, setaudio] = useState(
+    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+  )
   const audioRef = useRef()
-  const imgUrl = 'https://i.ibb.co/98ck5mT/aaron.jpg'
-  const audio = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
 
   const onChange = (e) => {
     const audio = audioRef.current
@@ -131,6 +133,39 @@ function AudioWidget() {
           value={progressBarColor}
           onChange={(e) => setProgressBarColor(e.target.value)}
         ></input>
+
+        <label for='favcolor'>Change font color: </label>
+        <input
+          type='color'
+          id='fontColor'
+          name='fontColor'
+          value={fontColor}
+          onChange={(e) => setfontColor(e.target.value)}
+        ></input>
+
+        <label for='avatar'>Choose an image: </label>
+        <input
+          type='file'
+          id='avatar'
+          name='avatar'
+          accept='image/png, image/jpeg'
+          onChange={(e) => {
+            console.log(e.target.files[0])
+            setimgUrl(URL.createObjectURL(e.target.files[0]))
+          }}
+        ></input>
+
+        <label for='audio'>Choose an audio file: </label>
+        <input
+          type='file'
+          id='audio'
+          name='audio'
+          accept='audio/*'
+          onChange={(e) => {
+            console.log(e.target.files[0])
+            setaudio(URL.createObjectURL(e.target.files[0]))
+          }}
+        ></input>
       </div>
       <div
         style={{
@@ -142,26 +177,34 @@ function AudioWidget() {
         }}
         className='embed-audio-container'
       >
-        <img
-          // width='150px'
-          draggable='false'
-          className='podcast-image'
-          src={imgUrl}
-          style={{ borderRadius: '5px' }}
-        />
-        <div className='podcast-info'>
-          <h3 contenteditable='true' style={{ marginBottom: '.3em' }}>
-            {mainTitle}
-          </h3>
-          <p
-            style={{
-              fontWeight: 400,
-              marginTop: 0,
-            }}
-          >
-            {subtitle}
-          </p>
-
+        <img draggable='false' className='podcast-image' src={imgUrl} />
+        <div style={{ border: '1px solid yellow' }} className='podcast-info'>
+          <div class='controls-container'>
+            <button
+              style={{ border: '1px solid red' }}
+              className='play-button'
+              onClick={play}
+            >
+              <img src={playBtn} />
+            </button>
+            <div style={{ border: '1px solid red', width: '70%' }}>
+              <h3
+                contenteditable='true'
+                style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
+              >
+                {mainTitle}
+              </h3>
+              <p
+                style={{
+                  fontWeight: 400,
+                  marginTop: 0,
+                  color: fontColor,
+                }}
+              >
+                {subtitle}
+              </p>
+            </div>
+          </div>
           <div>
             <Slider
               backgroundColor={progressBarColor}
@@ -178,11 +221,6 @@ function AudioWidget() {
             </div>
           </div>
           <div>
-            <button className='play-button' onClick={play}>
-              <img src={playBtn} />
-            </button>
-
-            {/* <Button play={play} isPlaying={isPlaying} /> */}
             <button className='skip-buttons' onClick={() => skip('back')}>
               back
               {/* <BsIcons.BsArrowCounterclockwise color='#535353' size={22} /> */}

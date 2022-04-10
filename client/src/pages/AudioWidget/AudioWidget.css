@@ -44,7 +44,7 @@
 }
 
 .embed-audio-container {
-  height: 200px;
+  height: 210px;
   /* border: 1px solid grey; */
   background-color: #1b1b1b;
   border-radius: 5px;
@@ -62,10 +62,22 @@
   transform: translateY(-50%);
 }
 
+.podcast-image {
+  padding: 1rem;
+  width: 175px;
+  height: 175px;
+  border-radius: 20px;
+}
+
 .play-button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.controls-container {
+  display: flex;
+  margin-top: 1rem;
 }
 
 /* @media only screen and (max-width: 1000px) {
