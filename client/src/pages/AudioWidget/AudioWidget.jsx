@@ -6,9 +6,11 @@ import axios from 'axios'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
+import Draggable from 'react-draggable'
+
+import './AudioWidget.css'
 
 function AudioWidget() {
-  const [episodeData, setEpisodeData] = useState([])
   const [percentage, setPercentage] = useState()
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
@@ -16,9 +18,11 @@ function AudioWidget() {
   const [speed, setSpeed] = useState(1)
   const [counted, setCounted] = useState(false)
 
-  const audioRef = useRef()
+  const [colorPicker, setcolorPicker] = useState('#ff0000')
 
-  // const { id } = useParams()
+  const audioRef = useRef()
+  const imgUrl = 'https://i.ibb.co/98ck5mT/aaron.jpg'
+  const audio = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
 
   const onChange = (e) => {
     const audio = audioRef.current
@@ -79,22 +83,18 @@ function AudioWidget() {
   }
 
   const incListenCount = () => {
-    axios
-      .patch(`/api/update/episodes/${id}/views`)
-      .then((res) => console.log(res))
+    // axios
+    //   .patch(`/api/update/episodes/${id}/views`)
+    //   .then((res) => console.log(res))
+    console.log('listen count incremented')
   }
 
   const incListenCompleted = () => {
-    axios
-      .patch(`/api/update/episodes/${id}/views/completed`)
-      .then((res) => console.log(res))
+    // axios
+    //   .patch(`/api/update/episodes/${id}/views/completed`)
+    //   .then((res) => console.log(res))
+    console.log('listen completed incremented')
   }
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/get/episodes/public/${id}`)
-  //     .then((res) => setEpisodeData(res.data))
-  // }, [])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -107,10 +107,40 @@ function AudioWidget() {
 
   return (
     <>
-      <div className='embed-audio-container'>
-        <img className='podcast-image' src={episodeData.episode_artwork} />
+      <div style={{ marginTop: '2rem' }}>
+        <label for='favcolor'>Change background color: </label>
+        <input
+          type='color'
+          id='favcolor'
+          name='favcolor'
+          value={colorPicker}
+          onChange={(e) => setcolorPicker(e.target.value)}
+        ></input>
+      </div>
+      <div
+        style={{
+          backgroundColor: `${colorPicker}`,
+          width: '60%',
+          margin: '2rem auto',
+          borderRadius: '5px',
+          cursor: 'pointer',
+        }}
+        className='embed-audio-container'
+      >
+        <Draggable>
+          <img
+            width='150px'
+            draggable='false'
+            className='podcast-image'
+            src={imgUrl}
+            style={{ borderRadius: '5px' }}
+          />
+        </Draggable>
+        {/* <img width='200px' className='podcast-image' src={imgUrl} /> */}
         <div className='podcast-info'>
-          <h3 style={{ marginBottom: '.3em' }}>Episode Title</h3>
+          <h3 contenteditable='true' style={{ marginBottom: '.3em' }}>
+            Episode Title
+          </h3>
           <p
             style={{
               marginBottom: '.3em',
@@ -132,6 +162,7 @@ function AudioWidget() {
             </div>
           </div>
           <div>
+            <button onClick={play}>Play</button>
             {/* <Button play={play} isPlaying={isPlaying} /> */}
             <button className='skip-buttons' onClick={() => skip('back')}>
               back
@@ -151,7 +182,7 @@ function AudioWidget() {
             onLoadedData={(e) => {
               setDuration(e.currentTarget.duration.toFixed(2))
             }}
-            src={episodeData.episode_audio}
+            src={audio}
           />
         </div>
       </div>
