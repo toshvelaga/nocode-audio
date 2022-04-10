@@ -7,7 +7,6 @@ import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
 import Draggable from 'react-draggable'
-
 import './AudioWidget.css'
 
 function AudioWidget() {
@@ -18,7 +17,8 @@ function AudioWidget() {
   const [speed, setSpeed] = useState(1)
   const [counted, setCounted] = useState(false)
 
-  const [colorPicker, setcolorPicker] = useState('#ff0000')
+  const [backgroundColor, setBackgroundColor] = useState('#ff0000')
+  const [progressBarColor, setProgressBarColor] = useState('#fff')
 
   const audioRef = useRef()
   const imgUrl = 'https://i.ibb.co/98ck5mT/aaron.jpg'
@@ -111,15 +111,24 @@ function AudioWidget() {
         <label for='favcolor'>Change background color: </label>
         <input
           type='color'
-          id='favcolor'
-          name='favcolor'
-          value={colorPicker}
-          onChange={(e) => setcolorPicker(e.target.value)}
+          id='backgroundColor'
+          name='backgroundColor'
+          value={backgroundColor}
+          onChange={(e) => setBackgroundColor(e.target.value)}
+        ></input>
+
+        <label for='favcolor'>Change progress bar color: </label>
+        <input
+          type='color'
+          id='progressColor'
+          name='progressColor'
+          value={progressBarColor}
+          onChange={(e) => setProgressBarColor(e.target.value)}
         ></input>
       </div>
       <div
         style={{
-          backgroundColor: `${colorPicker}`,
+          backgroundColor: `${backgroundColor}`,
           width: '60%',
           margin: '2rem auto',
           borderRadius: '5px',
@@ -151,7 +160,11 @@ function AudioWidget() {
           </p>
 
           <div>
-            <Slider percentage={percentage} onChange={onChange} />
+            <Slider
+              backgroundColor={progressBarColor}
+              percentage={percentage}
+              onChange={onChange}
+            />
             <div>
               <ControlPanel
                 play={play}

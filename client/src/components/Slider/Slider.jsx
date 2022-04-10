@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import './slider.css'
 // import './thumb.css';
 
-function Slider({ percentage = 0, onChange }) {
+function Slider({ percentage = 0, onChange, backgroundColor }) {
   const [position, setPosition] = useState(0)
   const [marginLeft, setMarginLeft] = useState(0)
   const [progressBarWidth, setProgressBarWidth] = useState(0)
@@ -30,6 +30,7 @@ function Slider({ percentage = 0, onChange }) {
         className='progress-bar-cover'
         style={{
           width: `${progressBarWidth}px`,
+          backgroundColor: backgroundColor,
         }}
       />
       <div
