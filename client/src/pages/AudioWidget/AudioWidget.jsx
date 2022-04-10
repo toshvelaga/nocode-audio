@@ -7,6 +7,7 @@ import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
 import Draggable from 'react-draggable'
+import playBtn from '../../assets/play.svg'
 import './AudioWidget.css'
 
 function AudioWidget() {
@@ -155,6 +156,7 @@ function AudioWidget() {
           <p
             style={{
               fontWeight: 400,
+              marginTop: 0,
             }}
           >
             {subtitle}
@@ -176,7 +178,10 @@ function AudioWidget() {
             </div>
           </div>
           <div>
-            <button onClick={play}>Play</button>
+            <button className='play-button' onClick={play}>
+              <img src={playBtn} />
+            </button>
+
             {/* <Button play={play} isPlaying={isPlaying} /> */}
             <button className='skip-buttons' onClick={() => skip('back')}>
               back
