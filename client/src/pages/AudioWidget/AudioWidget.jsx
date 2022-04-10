@@ -113,6 +113,8 @@ function AudioWidget() {
     }
   }, [speed])
 
+  console.log(mainTitle)
+
   return (
     <>
       <div style={{ marginTop: '2rem' }}>
@@ -166,6 +168,8 @@ function AudioWidget() {
             setaudio(URL.createObjectURL(e.target.files[0]))
           }}
         ></input>
+
+        <button onClick={() => alert('submit')}>Submit</button>
       </div>
       <div
         style={{
