@@ -18,8 +18,8 @@ function AudioWidget() {
   const [speed, setSpeed] = useState(1)
   const [counted, setCounted] = useState(false)
 
-  const [backgroundColor, setBackgroundColor] = useState('#ff0000')
-  const [progressBarColor, setProgressBarColor] = useState('#fff')
+  const [backgroundColor, setBackgroundColor] = useState('#1b1b1b')
+  const [progressBarColor, setProgressBarColor] = useState('#1bb953')
 
   const [mainTitle, setmainTitle] = useState('The Story of Aaron Schwartz')
   const [subtitle, setsubtitle] = useState(
