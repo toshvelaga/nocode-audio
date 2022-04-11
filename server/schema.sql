@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE audio_player (
     player_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     title character varying(255),
