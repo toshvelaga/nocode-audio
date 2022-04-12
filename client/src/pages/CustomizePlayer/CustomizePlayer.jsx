@@ -15,9 +15,9 @@ function CustomizePlayer() {
   const [speed, setSpeed] = useState(1)
 
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
-  const [playBtnColor, setplayBtnColor] = useState('grey')
+  const [playBtnColor, setplayBtnColor] = useState('#d72830')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
-  const [fontColor, setfontColor] = useState('#1bb953')
+  const [fontColor, setfontColor] = useState('black')
 
   const [title, setTitle] = useState('The Story of Aaron Schwartz')
   const [subtitle, setsubtitle] = useState(
@@ -279,6 +279,7 @@ function CustomizePlayer() {
         <textarea rows={3} value={embedUrl} />
         <div className='audio-player-submit-button'>
           <button
+            className='copy-button'
             onClick={() => {
               navigator.clipboard.writeText(embedUrl)
               setbuttonTitle('Copied!')
