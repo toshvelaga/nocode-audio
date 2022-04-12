@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-// import './AudioWidget.css';
-// import { useParams } from 'react-router-dom';
-import axios from 'axios'
+import API from '../../api/api'
 // import * as BsIcons from 'react-icons/bs';
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
@@ -20,15 +18,21 @@ function CustomizePlayer() {
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
   const [fontColor, setfontColor] = useState('#1bb953')
 
-  const [mainTitle, setmainTitle] = useState('The Story of Aaron Schwartz')
+  const [title, setTitle] = useState('The Story of Aaron Schwartz')
   const [subtitle, setsubtitle] = useState(
     'Hacktivism and the limits of Open Source'
   )
   const [imgUrl, setimgUrl] = useState('https://i.ibb.co/98ck5mT/aaron.jpg')
-  const [audio, setaudio] = useState(
+  const [audioUrl, setaudio] = useState(
     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
   )
+  const [embedUrl, setembedUrl] = useState('')
   const audioRef = useRef()
+
+  useEffect(() => {
+    const audio = audioRef.current
+    audio.playbackRate = speed
+  }, [speed])
 
   const onChange = (e) => {
     const audio = audioRef.current
@@ -82,10 +86,23 @@ function CustomizePlayer() {
     }
   }
 
-  useEffect(() => {
-    const audio = audioRef.current
-    audio.playbackRate = speed
-  }, [speed])
+  const submitHandler = () => {
+    API.post('audio-player', {
+      title: 'The Story of Aaron Schwartz',
+      subtitle,
+      backgroundColor,
+      progressBarColor,
+      fontColor,
+      audioUrl,
+      imageUrl: imgUrl,
+    })
+      .then((res) => {
+        setembedUrl(res.data.id)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return (
     <>
@@ -141,7 +158,7 @@ function CustomizePlayer() {
           }}
         ></input>
 
-        <button onClick={() => alert('submit')}>Submit</button>
+        <button onClick={submitHandler}>Submit</button>
       </div>
       <div
         style={{
@@ -155,7 +172,7 @@ function CustomizePlayer() {
       >
         <img draggable='false' className='podcast-image' src={imgUrl} />
         <div style={{ border: '1px solid yellow' }} className='podcast-info'>
-          <div class='controls-container'>
+          <div className='controls-container'>
             <button
               style={{ border: '1px solid red' }}
               className='play-button'
@@ -168,7 +185,7 @@ function CustomizePlayer() {
                 contenteditable='true'
                 style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
               >
-                {mainTitle}
+                {title}
               </h3>
               <p
                 style={{
@@ -215,10 +232,11 @@ function CustomizePlayer() {
             onLoadedData={(e) => {
               setDuration(e.currentTarget.duration.toFixed(2))
             }}
-            src={audio}
+            src={audioUrl}
           />
         </div>
       </div>
+      {embedUrl && <p>{embedUrl}</p>}
     </>
   )
 }
