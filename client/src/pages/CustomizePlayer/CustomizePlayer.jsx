@@ -16,6 +16,7 @@ function CustomizePlayer() {
   const [speed, setSpeed] = useState(1)
 
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
+  const [playBtnColor, setplayBtnColor] = useState('grey')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
   const [fontColor, setfontColor] = useState('#1bb953')
 
@@ -121,6 +122,17 @@ function CustomizePlayer() {
           </div>
 
           <div className='navbar-inputs'>
+            <label for='favcolor'>Play button color: </label>
+            <input
+              type='color'
+              id='playBtnColor'
+              name='playBtnColor'
+              value={playBtnColor}
+              onChange={(e) => setplayBtnColor(e.target.value)}
+            ></input>
+          </div>
+
+          <div className='navbar-inputs'>
             <label for='favcolor'>Progress bar color: </label>
             <input
               type='color'
@@ -198,9 +210,9 @@ function CustomizePlayer() {
               onClick={play}
             >
               {!isPlaying ? (
-                <FaPlayCircle color={'#535353'} size={70} />
+                <FaPlayCircle color={playBtnColor} size={70} />
               ) : (
-                <FaPauseCircle color={'#535353'} size={70} />
+                <FaPauseCircle color={playBtnColor} size={70} />
               )}
             </button>
             <div style={{ border: '1px solid red', width: '70%' }}>
