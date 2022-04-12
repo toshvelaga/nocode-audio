@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import API from '../../api/api'
-// import * as BsIcons from 'react-icons/bs';
+import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
+import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
-import playBtn from '../../assets/play.svg'
 import './CustomizePlayer.css'
 import Navbar from '../../components/Navbar/Navbar'
 
@@ -182,7 +182,6 @@ function CustomizePlayer() {
         style={{
           backgroundColor: `${backgroundColor}`,
           width: '60%',
-          // margin: '2rem auto',
           borderRadius: '5px',
           cursor: 'pointer',
           marginLeft: '330px',
@@ -198,7 +197,11 @@ function CustomizePlayer() {
               className='play-button'
               onClick={play}
             >
-              <img src={playBtn} />
+              {!isPlaying ? (
+                <FaPlayCircle color={'#535353'} size={70} />
+              ) : (
+                <FaPauseCircle color={'#535353'} size={70} />
+              )}
             </button>
             <div style={{ border: '1px solid red', width: '70%' }}>
               <h3
@@ -235,15 +238,13 @@ function CustomizePlayer() {
           </div>
           <div>
             <button className='skip-buttons' onClick={() => skip('back')}>
-              back
-              {/* <BsIcons.BsArrowCounterclockwise color='#535353' size={22} /> */}
+              <BsArrowCounterclockwise color='#535353' size={22} />
             </button>
             <button className='speed-button' onClick={() => changeSpeed()}>
               {speed}x
             </button>
             <button className='skip-buttons' onClick={() => skip('fwd')}>
-              fwd
-              {/* <BsIcons.BsArrowClockwise color='#535353' size={22} /> */}
+              <BsArrowClockwise color='#535353' size={22} />
             </button>
           </div>
           <audio

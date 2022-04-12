@@ -12,7 +12,10 @@
 .skip-buttons {
   background: transparent;
   border: none;
-  color: #fff;
+  cursor: pointer;
+  vertical-align: top;
+  margin-top: 24px;
+  margin-left: 0.5rem;
 }
 
 .speed-button {
@@ -26,12 +29,6 @@
   font-size: 12px;
   /* margin-right: 5px; */
   outline: none;
-  vertical-align: top;
-  margin-top: 24px;
-  margin-left: 0.5rem;
-}
-
-.skip-buttons {
   vertical-align: top;
   margin-top: 24px;
   margin-left: 0.5rem;
@@ -97,6 +94,10 @@ input[type='file'] {
   padding: 0.75rem 0rem;
   text-align: center;
   margin-bottom: 1rem;
+}
+
+.upload-file-button:hover {
+  background-color: lightgrey;
 }
 
 .submit-button {

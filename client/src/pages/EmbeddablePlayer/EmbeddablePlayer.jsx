@@ -5,7 +5,7 @@ import API from '../../api/api'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
-import playBtn from '../../assets/play.svg'
+// import playBtn from '../../assets/play.svg'
 
 const EmbeddablePlayer = () => {
   const { id } = useParams()
