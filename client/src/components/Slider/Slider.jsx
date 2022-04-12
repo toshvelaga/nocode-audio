@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-
-import './slider.css'
-// import './thumb.css';
+import './Slider.css'
 
 function Slider({ percentage = 0, onChange, backgroundColor }) {
   const [position, setPosition] = useState(0)
