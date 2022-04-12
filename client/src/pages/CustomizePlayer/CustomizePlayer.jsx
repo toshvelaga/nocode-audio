@@ -4,7 +4,6 @@ import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
-// import Button from '../../components/Controls/Button'
 import './CustomizePlayer.css'
 import Navbar from '../../components/Navbar/Navbar'
 
@@ -28,6 +27,10 @@ function CustomizePlayer() {
   const [audioUrl, setaudio] = useState(
     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
   )
+
+  const [textareaValue, setTextareaValue] = useState('')
+  const [buttonTitle, setbuttonTitle] = useState('Copy Embed Link')
+
   const [embedUrl, setembedUrl] = useState('')
   const audioRef = useRef()
 
@@ -271,7 +274,23 @@ function CustomizePlayer() {
           />
         </div>
       </div>
-      {embedUrl && <p>{embedUrl}</p>}
+
+      <div style={{ marginLeft: '330px', marginTop: '1rem' }}>
+        <textarea rows={3} value={embedUrl} />
+        <div className='audio-player-submit-button'>
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(embedUrl)
+              setbuttonTitle('Copied!')
+              setTimeout(() => {
+                setbuttonTitle('Copy Embed Link')
+              }, 2500)
+            }}
+          >
+            {buttonTitle}
+          </button>
+        </div>
+      </div>
     </>
   )
 }
