@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import API from '../../api/api'
-// import * as BsIcons from 'react-icons/bs';
+import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
+import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
@@ -137,7 +138,11 @@ const EmbeddablePlayer = () => {
               className='play-button'
               onClick={play}
             >
-              <img src={playBtn} />
+              {!isPlaying ? (
+                <FaPlayCircle color={'green'} size={70} />
+              ) : (
+                <FaPauseCircle color={'green'} size={70} />
+              )}
             </button>
             <div style={{ border: '1px solid red', width: '70%' }}>
               <h3
@@ -195,7 +200,7 @@ const EmbeddablePlayer = () => {
             onLoadedData={(e) => {
               setDuration(e.currentTarget.duration.toFixed(2))
             }}
-            src={playerData.audio}
+            src={playerData.audioUrl}
           />
         </div>
       </div>
