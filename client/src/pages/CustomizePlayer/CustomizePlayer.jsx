@@ -202,22 +202,24 @@ function CustomizePlayer() {
         className='embed-audio-container'
       >
         <img draggable='false' className='podcast-image' src={imgUrl} />
-        <div style={{ border: '1px solid purple' }} className='podcast-info'>
+        <div className='podcast-info'>
           <div className='controls-container'>
-            <button
-              style={{ border: '1px solid red' }}
-              className='play-button'
-              onClick={play}
-            >
+            <button className='play-button' onClick={play}>
               {!isPlaying ? (
                 <FaPlayCircle color={playBtnColor} size={70} />
               ) : (
                 <FaPauseCircle color={playBtnColor} size={70} />
               )}
             </button>
-            <div style={{ border: '1px solid red', width: '70%' }}>
+            <div
+              style={{
+                // border: '1px solid red',
+                width: '70%',
+                marginTop: '.25rem',
+                // marginLeft: '1rem',
+              }}
+            >
               <h3
-                contenteditable='true'
                 style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
               >
                 {title}
@@ -233,7 +235,7 @@ function CustomizePlayer() {
               </p>
             </div>
           </div>
-          <div>
+          <div style={{ marginTop: '.5rem' }}>
             <Slider
               backgroundColor={progressBarColor}
               percentage={percentage}
@@ -248,7 +250,7 @@ function CustomizePlayer() {
               />
             </div>
           </div>
-          <div>
+          <div className='bottom-controls-container'>
             <button className='skip-buttons' onClick={() => skip('back')}>
               <BsArrowCounterclockwise color='#535353' size={22} />
             </button>

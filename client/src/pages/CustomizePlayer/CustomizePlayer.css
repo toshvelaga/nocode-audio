@@ -57,7 +57,7 @@ input[type='file'] {
 .podcast-info {
   position: relative;
   top: 50%;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   margin-right: 1rem;
   width: 80%;
   transform: translateY(-50%);
@@ -115,6 +115,16 @@ input[type='file'] {
 
 .submit-button:hover {
   background-color: #7c42da;
+}
+
+.bottom-controls-container {
+  display: none;
+  text-align: center;
+}
+
+.embed-audio-container:hover .bottom-controls-container {
+  display: block;
+  transition: all 2s linear;
 }
 
 /* @media only screen and (max-width: 1000px) {
