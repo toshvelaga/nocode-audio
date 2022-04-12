@@ -15,7 +15,7 @@ function CustomizePlayer() {
   const [currentTime, setCurrentTime] = useState()
   const [speed, setSpeed] = useState(1)
 
-  const [backgroundColor, setBackgroundColor] = useState('#1b1b1b')
+  const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
   const [fontColor, setfontColor] = useState('#1bb953')
 
@@ -142,31 +142,39 @@ function CustomizePlayer() {
             ></input>
           </div>
 
-          <label for='avatar'>Choose an image: </label>
-          <input
-            type='file'
-            id='avatar'
-            name='avatar'
-            accept='image/png, image/jpeg'
-            onChange={(e) => {
-              console.log(e.target.files[0])
-              setimgUrl(URL.createObjectURL(e.target.files[0]))
-            }}
-          ></input>
+          <div className='upload-file-button'>
+            <label style={{ width: '100%' }} for='avatar'>
+              Upload image
+            </label>
+            <input
+              type='file'
+              id='avatar'
+              name='avatar'
+              accept='image/png, image/jpeg'
+              onChange={(e) => {
+                console.log(e.target.files[0])
+                setimgUrl(URL.createObjectURL(e.target.files[0]))
+              }}
+            ></input>
+          </div>
 
-          <label for='audio'>Choose an audio file: </label>
-          <input
-            type='file'
-            id='audio'
-            name='audio'
-            accept='audio/*'
-            onChange={(e) => {
-              console.log(e.target.files[0])
-              setaudio(URL.createObjectURL(e.target.files[0]))
-            }}
-          ></input>
+          <div className='upload-file-button'>
+            <label for='audio'>Upload audio</label>
+            <input
+              type='file'
+              id='audio'
+              name='audio'
+              accept='audio/*'
+              onChange={(e) => {
+                console.log(e.target.files[0])
+                setaudio(URL.createObjectURL(e.target.files[0]))
+              }}
+            ></input>
+          </div>
 
-          <button onClick={submitHandler}>Submit</button>
+          <button className='submit-button' onClick={submitHandler}>
+            Submit
+          </button>
         </div>
       </Navbar>
 
@@ -183,7 +191,7 @@ function CustomizePlayer() {
         className='embed-audio-container'
       >
         <img draggable='false' className='podcast-image' src={imgUrl} />
-        <div style={{ border: '1px solid yellow' }} className='podcast-info'>
+        <div style={{ border: '1px solid purple' }} className='podcast-info'>
           <div className='controls-container'>
             <button
               style={{ border: '1px solid red' }}
