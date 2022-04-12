@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import API from '../../api/api'
 // import * as BsIcons from 'react-icons/bs';
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
@@ -86,8 +86,7 @@ const EmbeddablePlayer = () => {
   }, [speed])
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5001/audio-player/${id}`)
+    API.get(`audio-player/${id}`)
       .then((res) => {
         const {
           background_color,
@@ -132,7 +131,7 @@ const EmbeddablePlayer = () => {
           src={playerData.imgUrl}
         />
         <div style={{ border: '1px solid yellow' }} className='podcast-info'>
-          <div class='controls-container'>
+          <div className='controls-container'>
             <button
               style={{ border: '1px solid red' }}
               className='play-button'

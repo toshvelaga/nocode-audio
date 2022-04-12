@@ -7,8 +7,8 @@ const PORT = 5001
 
 app.use(cors())
 
-app.use('/', audioPlayerRouter)
-app.use('/uploads', uploadRouter)
+app.use('/api', audioPlayerRouter)
+app.use('/api/uploads', uploadRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}!`)
