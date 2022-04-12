@@ -6,6 +6,7 @@ import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
 import playBtn from '../../assets/play.svg'
 import './CustomizePlayer.css'
+import Navbar from '../../components/Navbar/Navbar'
 
 function CustomizePlayer() {
   const [percentage, setPercentage] = useState()
@@ -106,67 +107,78 @@ function CustomizePlayer() {
 
   return (
     <>
-      <div style={{ marginTop: '2rem' }}>
-        <label for='favcolor'>Change background color: </label>
-        <input
-          type='color'
-          id='backgroundColor'
-          name='backgroundColor'
-          value={backgroundColor}
-          onChange={(e) => setBackgroundColor(e.target.value)}
-        ></input>
+      <Navbar>
+        <div style={{ marginTop: '2rem' }}>
+          <div className='navbar-inputs'>
+            <label for='favcolor'>Background color: </label>
+            <input
+              type='color'
+              id='backgroundColor'
+              name='backgroundColor'
+              value={backgroundColor}
+              onChange={(e) => setBackgroundColor(e.target.value)}
+            ></input>
+          </div>
 
-        <label for='favcolor'>Change progress bar color: </label>
-        <input
-          type='color'
-          id='progressColor'
-          name='progressColor'
-          value={progressBarColor}
-          onChange={(e) => setProgressBarColor(e.target.value)}
-        ></input>
+          <div className='navbar-inputs'>
+            <label for='favcolor'>Progress bar color: </label>
+            <input
+              type='color'
+              id='progressColor'
+              name='progressColor'
+              value={progressBarColor}
+              onChange={(e) => setProgressBarColor(e.target.value)}
+            ></input>
+          </div>
 
-        <label for='favcolor'>Change font color: </label>
-        <input
-          type='color'
-          id='fontColor'
-          name='fontColor'
-          value={fontColor}
-          onChange={(e) => setfontColor(e.target.value)}
-        ></input>
+          <div className='navbar-inputs'>
+            <label for='favcolor'>Font color: </label>
+            <input
+              type='color'
+              id='fontColor'
+              name='fontColor'
+              value={fontColor}
+              onChange={(e) => setfontColor(e.target.value)}
+            ></input>
+          </div>
 
-        <label for='avatar'>Choose an image: </label>
-        <input
-          type='file'
-          id='avatar'
-          name='avatar'
-          accept='image/png, image/jpeg'
-          onChange={(e) => {
-            console.log(e.target.files[0])
-            setimgUrl(URL.createObjectURL(e.target.files[0]))
-          }}
-        ></input>
+          <label for='avatar'>Choose an image: </label>
+          <input
+            type='file'
+            id='avatar'
+            name='avatar'
+            accept='image/png, image/jpeg'
+            onChange={(e) => {
+              console.log(e.target.files[0])
+              setimgUrl(URL.createObjectURL(e.target.files[0]))
+            }}
+          ></input>
 
-        <label for='audio'>Choose an audio file: </label>
-        <input
-          type='file'
-          id='audio'
-          name='audio'
-          accept='audio/*'
-          onChange={(e) => {
-            console.log(e.target.files[0])
-            setaudio(URL.createObjectURL(e.target.files[0]))
-          }}
-        ></input>
+          <label for='audio'>Choose an audio file: </label>
+          <input
+            type='file'
+            id='audio'
+            name='audio'
+            accept='audio/*'
+            onChange={(e) => {
+              console.log(e.target.files[0])
+              setaudio(URL.createObjectURL(e.target.files[0]))
+            }}
+          ></input>
 
-        <button onClick={submitHandler}>Submit</button>
-      </div>
+          <button onClick={submitHandler}>Submit</button>
+        </div>
+      </Navbar>
+
       <div
         style={{
           backgroundColor: `${backgroundColor}`,
           width: '60%',
-          margin: '2rem auto',
+          // margin: '2rem auto',
           borderRadius: '5px',
           cursor: 'pointer',
+          marginLeft: '330px',
+          marginTop: '5rem',
         }}
         className='embed-audio-container'
       >

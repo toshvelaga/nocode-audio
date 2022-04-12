@@ -80,6 +80,24 @@
   margin-top: 1rem;
 }
 
+.navbar-inputs {
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+/* input[type='color'] {
+  -webkit-appearance: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type='color']::-webkit-color-swatch {
+  border: none;
+} */
+
 /* @media only screen and (max-width: 1000px) {
 	.podcast-audio-container {
 		width: 80%;
