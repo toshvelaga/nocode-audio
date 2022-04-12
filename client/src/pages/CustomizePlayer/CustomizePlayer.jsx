@@ -222,11 +222,12 @@ function CustomizePlayer() {
                 // marginLeft: '1rem',
               }}
             >
-              <h3
+              {/* <h3
                 style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
               >
                 {title}
-              </h3>
+              </h3> */}
+              <textarea className='' value={title} />
               <p
                 style={{
                   fontWeight: 400,

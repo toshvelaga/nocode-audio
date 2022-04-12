@@ -116,21 +116,17 @@ input[type='file'] {
 .copy-button {
   background-color: #08c803;
   color: white;
-  letter-spacing: 2px;
-  padding: 10px;
   outline: none;
   border: none;
-  padding: 15px 80px;
+  padding: 16px 40px;
   font-size: 16px;
-  border-radius: 25px;
-  /* text-transform: uppercase; */
+  border-radius: 5px;
 }
 
 .copy-button:hover {
   background-color: #07b402; /* Green */
   color: white;
   cursor: pointer;
-  /* padding: 16px 82px; */
 }
 
 .submit-button:hover {
