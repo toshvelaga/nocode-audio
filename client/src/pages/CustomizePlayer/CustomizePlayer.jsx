@@ -109,6 +109,8 @@ function CustomizePlayer() {
       })
   }
 
+  console.log(subtitle)
+
   return (
     <>
       <Navbar>
@@ -217,26 +219,39 @@ function CustomizePlayer() {
             <div
               style={{
                 // border: '1px solid red',
-                width: '70%',
+                width: '100%',
                 marginTop: '.25rem',
                 // marginLeft: '1rem',
               }}
             >
-              {/* <h3
-                style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
-              >
-                {title}
-              </h3> */}
-              <textarea className='' value={title} />
-              <p
+              <textarea
                 style={{
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                  width: '100%',
+                  fontSize: '16px',
                   fontWeight: 400,
-                  marginTop: 0,
-                  color: fontColor,
+                  resize: 'none',
                 }}
-              >
-                {subtitle}
-              </p>
+                maxLength='40'
+                value={title}
+                rows='1'
+                onChange={(e) => setTitle(e.target.value)}
+              />
+
+              <textarea
+                style={{
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                  width: '100%',
+                  fontSize: '16px',
+                  fontWeight: 400,
+                  resize: 'none',
+                }}
+                maxLength='85'
+                value={subtitle}
+                onChange={(e) => setsubtitle(e.target.value)}
+              />
             </div>
           </div>
           <div style={{ marginTop: '.5rem' }}>
