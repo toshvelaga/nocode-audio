@@ -31,7 +31,9 @@ function CustomizePlayer() {
   const [textareaValue, setTextareaValue] = useState('')
   const [buttonTitle, setbuttonTitle] = useState('Copy Embed Link')
 
-  const [embedUrl, setembedUrl] = useState('')
+  const [embedUrl, setembedUrl] = useState(
+    'http://localhost:3000/embed/ca43a8e1-f94c-4b0a-98cb-474ef0879502'
+  )
   const audioRef = useRef()
 
   useEffect(() => {
@@ -93,7 +95,7 @@ function CustomizePlayer() {
 
   const submitHandler = () => {
     API.post('audio-player', {
-      title: 'The Story of Aaron Schwartz',
+      title,
       subtitle,
       backgroundColor,
       progressBarColor,
@@ -102,14 +104,14 @@ function CustomizePlayer() {
       imageUrl: imgUrl,
     })
       .then((res) => {
-        setembedUrl(res.data.id)
+        setembedUrl(
+          `<iframe src="https://audioplayr.netlify.app/embed/${res.data.id}" width="100%" height="200" frameBorder="0" scrolling="no"></iframe>`
+        )
       })
       .catch((err) => {
         console.log(err)
       })
   }
-
-  console.log(subtitle)
 
   return (
     <>
@@ -291,10 +293,32 @@ function CustomizePlayer() {
         </div>
       </div>
 
-      <div style={{ marginLeft: '330px', marginTop: '1rem' }}>
-        <textarea rows={3} value={embedUrl} />
+      <div
+        style={{
+          marginLeft: '330px',
+          marginTop: '2rem',
+          width: '60%',
+        }}
+      >
+        <div>
+          <textarea
+            style={{
+              width: '67.5%',
+              boxSizing: 'border-box',
+              resize: false,
+              float: 'left',
+              border: '1px solid lightgrey',
+              borderRadius: '5px',
+              backgroundColor: '#f1f1f1',
+              padding: '10px',
+            }}
+            rows={3}
+            value={embedUrl}
+          />
+        </div>
         <div className='audio-player-submit-button'>
           <button
+            style={{ width: '30%', float: 'right' }}
             className='copy-button'
             onClick={() => {
               navigator.clipboard.writeText(embedUrl)
