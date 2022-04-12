@@ -5,6 +5,7 @@ CREATE TABLE audio_player (
     title character varying(255),
     subtitle character varying,
     background_color character varying(255),
+    play_button_color character varying(255),
     progress_bar_color character varying(255),
     font_color character varying(255),
     audio_url character varying(255),

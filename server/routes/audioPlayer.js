@@ -22,14 +22,11 @@ router.post('/audio-player', async (req, res) => {
     fontColor,
     audioUrl,
     imageUrl,
+    playButtonColor,
   } = req.body
 
-  //   const title = 'hello'
-  //   const subtitle = 'world'
-  //   const backgroundColor = 'purple'
-
   const newAudioPlayer = await pool.query(
-    'INSERT INTO audio_player (title, subtitle, background_color, progress_bar_color, font_color, audio_url, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+    'INSERT INTO audio_player (title, subtitle, background_color, progress_bar_color, font_color, audio_url, image_url, play_button_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
     [
       title,
       subtitle,
@@ -38,6 +35,7 @@ router.post('/audio-player', async (req, res) => {
       fontColor,
       audioUrl,
       imageUrl,
+      playButtonColor,
     ]
   )
 
