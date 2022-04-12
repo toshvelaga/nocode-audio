@@ -19,7 +19,8 @@ const storage = multer.memoryStorage({
 })
 
 const upload = multer({ storage }).single('image')
-const audioupload = multer({ storage }).single('audio')
+// const upload = multer({ storage }).array('file') // for multiple files
+const audioupload = multer().single('audio')
 
 // upload image
 router.post('/images', upload, async (req, res) => {
