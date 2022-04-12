@@ -1,35 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react'
-// import './AudioWidget.css';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 // import * as BsIcons from 'react-icons/bs';
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 // import Button from '../../components/Controls/Button'
-import Draggable from 'react-draggable'
 import playBtn from '../../assets/play.svg'
-import './AudioWidget.css'
 
-function AudioWidget() {
+const EmbeddablePlayer = () => {
+  const { id } = useParams()
+
   const [percentage, setPercentage] = useState()
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState()
   const [speed, setSpeed] = useState(1)
-  const [counted, setCounted] = useState(false)
 
-  const [backgroundColor, setBackgroundColor] = useState('#1b1b1b')
-  const [progressBarColor, setProgressBarColor] = useState('#1bb953')
-  const [fontColor, setfontColor] = useState('#1bb953')
+  const [playerData, setplayerData] = useState({
+    backgroundColor: '',
+    progressBarColor: '',
+    fontColor: '',
+    mainTitle: '',
+    subtitle: '',
+    imgUrl: '',
+    audioUrl: '',
+  })
 
-  const [mainTitle, setmainTitle] = useState('The Story of Aaron Schwartz')
-  const [subtitle, setsubtitle] = useState(
-    'Hacktivism and the limits of Open Source'
-  )
-  const [imgUrl, setimgUrl] = useState('https://i.ibb.co/98ck5mT/aaron.jpg')
-  const [audio, setaudio] = useState(
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-  )
   const audioRef = useRef()
 
   const onChange = (e) => {
@@ -42,12 +38,6 @@ function AudioWidget() {
     const audio = audioRef.current
     // audio.playbackRate = speed;
     audio.volume = 0.1
-
-    if (!counted) {
-      console.log('clicked')
-      incListenCount()
-      setCounted(true)
-    }
 
     if (!isPlaying) {
       setIsPlaying(true)
@@ -90,98 +80,57 @@ function AudioWidget() {
     }
   }
 
-  const incListenCount = () => {
-    // axios
-    //   .patch(`/api/update/episodes/${id}/views`)
-    //   .then((res) => console.log(res))
-    console.log('listen count incremented')
-  }
-
-  const incListenCompleted = () => {
-    // axios
-    //   .patch(`/api/update/episodes/${id}/views/completed`)
-    //   .then((res) => console.log(res))
-    console.log('listen completed incremented')
-  }
-
   useEffect(() => {
     const audio = audioRef.current
     audio.playbackRate = speed
-
-    audio.onended = function () {
-      incListenCompleted()
-    }
   }, [speed])
 
-  console.log(mainTitle)
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5001/audio-player/${id}`)
+      .then((res) => {
+        const {
+          background_color,
+          progress_bar_color,
+          font_color,
+          title,
+          subtitle,
+          audio_url,
+          image_url,
+        } = res.data
+
+        setplayerData({
+          backgroundColor: background_color,
+          progressBarColor: progress_bar_color,
+          fontColor: font_color,
+          mainTitle: title,
+          subtitle: subtitle,
+          imgUrl: image_url,
+          audioUrl: audio_url,
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <>
-      <div style={{ marginTop: '2rem' }}>
-        <label for='favcolor'>Change background color: </label>
-        <input
-          type='color'
-          id='backgroundColor'
-          name='backgroundColor'
-          value={backgroundColor}
-          onChange={(e) => setBackgroundColor(e.target.value)}
-        ></input>
-
-        <label for='favcolor'>Change progress bar color: </label>
-        <input
-          type='color'
-          id='progressColor'
-          name='progressColor'
-          value={progressBarColor}
-          onChange={(e) => setProgressBarColor(e.target.value)}
-        ></input>
-
-        <label for='favcolor'>Change font color: </label>
-        <input
-          type='color'
-          id='fontColor'
-          name='fontColor'
-          value={fontColor}
-          onChange={(e) => setfontColor(e.target.value)}
-        ></input>
-
-        <label for='avatar'>Choose an image: </label>
-        <input
-          type='file'
-          id='avatar'
-          name='avatar'
-          accept='image/png, image/jpeg'
-          onChange={(e) => {
-            console.log(e.target.files[0])
-            setimgUrl(URL.createObjectURL(e.target.files[0]))
-          }}
-        ></input>
-
-        <label for='audio'>Choose an audio file: </label>
-        <input
-          type='file'
-          id='audio'
-          name='audio'
-          accept='audio/*'
-          onChange={(e) => {
-            console.log(e.target.files[0])
-            setaudio(URL.createObjectURL(e.target.files[0]))
-          }}
-        ></input>
-
-        <button onClick={() => alert('submit')}>Submit</button>
-      </div>
       <div
         style={{
-          backgroundColor: `${backgroundColor}`,
-          width: '60%',
+          backgroundColor: `${playerData.backgroundColor}`,
+          width: '100%',
           margin: '2rem auto',
           borderRadius: '5px',
           cursor: 'pointer',
         }}
         className='embed-audio-container'
       >
-        <img draggable='false' className='podcast-image' src={imgUrl} />
+        <img
+          draggable='false'
+          className='podcast-image'
+          src={playerData.imgUrl}
+        />
         <div style={{ border: '1px solid yellow' }} className='podcast-info'>
           <div class='controls-container'>
             <button
@@ -194,24 +143,28 @@ function AudioWidget() {
             <div style={{ border: '1px solid red', width: '70%' }}>
               <h3
                 contenteditable='true'
-                style={{ marginBottom: '.3em', marginTop: 0, color: fontColor }}
+                style={{
+                  marginBottom: '.3em',
+                  marginTop: 0,
+                  color: playerData.fontColor,
+                }}
               >
-                {mainTitle}
+                {playerData.mainTitle}
               </h3>
               <p
                 style={{
                   fontWeight: 400,
                   marginTop: 0,
-                  color: fontColor,
+                  color: playerData.fontColor,
                 }}
               >
-                {subtitle}
+                {playerData.subtitle}
               </p>
             </div>
           </div>
           <div>
             <Slider
-              backgroundColor={progressBarColor}
+              backgroundColor={playerData.progressBarColor}
               percentage={percentage}
               onChange={onChange}
             />
@@ -243,7 +196,7 @@ function AudioWidget() {
             onLoadedData={(e) => {
               setDuration(e.currentTarget.duration.toFixed(2))
             }}
-            src={audio}
+            src={playerData.audio}
           />
         </div>
       </div>
@@ -251,4 +204,4 @@ function AudioWidget() {
   )
 }
 
-export default AudioWidget
+export default EmbeddablePlayer
