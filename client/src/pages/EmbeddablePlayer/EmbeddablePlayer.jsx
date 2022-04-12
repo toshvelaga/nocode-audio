@@ -120,7 +120,6 @@ const EmbeddablePlayer = () => {
         style={{
           backgroundColor: `${playerData.backgroundColor}`,
           width: '100%',
-          margin: '2rem auto',
           borderRadius: '5px',
           cursor: 'pointer',
         }}
@@ -131,10 +130,10 @@ const EmbeddablePlayer = () => {
           className='podcast-image'
           src={playerData.imgUrl}
         />
-        <div style={{ border: '1px solid yellow' }} className='podcast-info'>
+        <div className='podcast-info'>
           <div className='controls-container'>
             <button
-              style={{ border: '1px solid red' }}
+              // style={{ border: '1px solid red' }}
               className='play-button'
               onClick={play}
             >
@@ -144,7 +143,7 @@ const EmbeddablePlayer = () => {
                 <FaPauseCircle color={'green'} size={70} />
               )}
             </button>
-            <div style={{ border: '1px solid red', width: '70%' }}>
+            <div style={{ width: '70%' }}>
               <h3
                 contenteditable='true'
                 style={{
@@ -181,17 +180,15 @@ const EmbeddablePlayer = () => {
               />
             </div>
           </div>
-          <div>
+          <div className='bottom-controls-container'>
             <button className='skip-buttons' onClick={() => skip('back')}>
-              back
-              {/* <BsIcons.BsArrowCounterclockwise color='#535353' size={22} /> */}
+              <BsArrowCounterclockwise color='#535353' size={22} />
             </button>
             <button className='speed-button' onClick={() => changeSpeed()}>
               {speed}x
             </button>
             <button className='skip-buttons' onClick={() => skip('fwd')}>
-              fwd
-              {/* <BsIcons.BsArrowClockwise color='#535353' size={22} /> */}
+              <BsArrowClockwise color='#535353' size={22} />
             </button>
           </div>
           <audio
