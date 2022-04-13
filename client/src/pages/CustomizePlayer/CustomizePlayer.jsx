@@ -5,6 +5,8 @@ import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
 import Navbar from '../../components/Navbar/Navbar'
+import NavbarInput from '../../components/Navbar/NavbarInput'
+import constants from '../../constants/constants'
 import './CustomizePlayer.css'
 
 function CustomizePlayer() {
@@ -18,22 +20,15 @@ function CustomizePlayer() {
   const [playBtnColor, setplayBtnColor] = useState('#d72830')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
   const [fontColor, setfontColor] = useState('black')
-  const [title, setTitle] = useState('The Story of Aaron Schwartz')
-  const [subtitle, setsubtitle] = useState(
-    'Hacktivism and the limits of Open Source'
-  )
-  const [imgUrl, setimgUrl] = useState('https://i.ibb.co/98ck5mT/aaron.jpg')
+  const [title, setTitle] = useState('Hacker Music')
+  const [subtitle, setsubtitle] = useState('An EDM song I found online')
+  const [imgUrl, setimgUrl] = useState(constants.exampleImg)
   const [imgFile, setimgFile] = useState('')
-  const [audioUrl, setaudio] = useState(
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-  )
+  const [audioUrl, setaudio] = useState(constants.exampleAudio)
   const [audioFile, setaudioFile] = useState('')
 
   const [loading, setloading] = useState(false)
-  const [buttonTitle, setbuttonTitle] = useState('Copy Embed Link')
-  const [embedUrl, setembedUrl] = useState(
-    'http://localhost:3000/embed/ca43a8e1-f94c-4b0a-98cb-474ef0879502'
-  )
+  const [embedUrl, setembedUrl] = useState(constants.exampleEmbedUrl)
 
   const audioRef = useRef()
 
@@ -50,7 +45,6 @@ function CustomizePlayer() {
 
   const play = () => {
     const audio = audioRef.current
-    // audio.playbackRate = speed;
     audio.volume = 0.1
 
     if (!isPlaying) {
@@ -119,11 +113,13 @@ function CustomizePlayer() {
       },
     }
 
-    const data = await API.post(`/uploads/${fileType}`, formData, config).then(
-      (res) => {
+    const data = await API.post(`/uploads/${fileType}`, formData, config)
+      .then((res) => {
         return res.data.Location
-      }
-    )
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
     return data
   }
@@ -133,6 +129,7 @@ function CustomizePlayer() {
       title,
       subtitle,
       backgroundColor,
+      playBtnColor,
       progressBarColor,
       fontColor,
       imageUrl: image,
@@ -148,114 +145,73 @@ function CustomizePlayer() {
       })
   }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(embedUrl)
-    setbuttonTitle('Copied!')
-    setTimeout(() => {
-      setbuttonTitle('Copy Embed Link')
-    }, 2500)
-  }
-
   return (
     <>
       <Navbar>
-        <div style={{ marginTop: '2rem' }}>
-          <div className='navbar-inputs'>
-            <label for='favcolor'>Background color: </label>
-            <input
-              type='color'
-              id='backgroundColor'
-              name='backgroundColor'
-              value={backgroundColor}
-              onChange={(e) => setBackgroundColor(e.target.value)}
-            ></input>
-          </div>
+        <NavbarInput
+          elemColor='backgroundColor'
+          title='Background color: '
+          value={backgroundColor}
+          onChange={(e) => setBackgroundColor(e.target.value)}
+        />
+        <NavbarInput
+          elemColor='playBtnColor'
+          title='Play button color: '
+          value={playBtnColor}
+          onChange={(e) => setplayBtnColor(e.target.value)}
+        />
+        <NavbarInput
+          elemColor='progressBarColor'
+          title='Progress bar color: '
+          value={progressBarColor}
+          onChange={(e) => setProgressBarColor(e.target.value)}
+        />
+        <NavbarInput
+          elemColor='fontColor'
+          title='Font color: '
+          value={fontColor}
+          onChange={(e) => setfontColor(e.target.value)}
+        />
 
-          <div className='navbar-inputs'>
-            <label for='favcolor'>Play button color: </label>
-            <input
-              type='color'
-              id='playBtnColor'
-              name='playBtnColor'
-              value={playBtnColor}
-              onChange={(e) => setplayBtnColor(e.target.value)}
-            ></input>
-          </div>
-
-          <div className='navbar-inputs'>
-            <label for='favcolor'>Progress bar color: </label>
-            <input
-              type='color'
-              id='progressColor'
-              name='progressColor'
-              value={progressBarColor}
-              onChange={(e) => setProgressBarColor(e.target.value)}
-            ></input>
-          </div>
-
-          <div className='navbar-inputs'>
-            <label for='favcolor'>Font color: </label>
-            <input
-              type='color'
-              id='fontColor'
-              name='fontColor'
-              value={fontColor}
-              onChange={(e) => setfontColor(e.target.value)}
-            ></input>
-          </div>
-
-          <div className='upload-file-button'>
-            <label style={{ width: '100%' }} for='avatar'>
-              Upload image
-            </label>
-            <input
-              type='file'
-              id='avatar'
-              name='avatar'
-              accept='image/png, image/jpeg'
-              onChange={(e) => {
-                // console.log(e.target.files[0])
-                setimgFile(e.target.files[0])
-                setimgUrl(URL.createObjectURL(e.target.files[0]))
-              }}
-            ></input>
-          </div>
-
-          <div className='upload-file-button'>
-            <label for='audio'>Upload audio</label>
-            <input
-              type='file'
-              id='audio'
-              name='audio'
-              accept='audio/*'
-              onChange={(e) => {
-                console.log(e.target.files[0])
-                setaudioFile(e.target.files[0])
-                setaudio(URL.createObjectURL(e.target.files[0]))
-              }}
-            ></input>
-          </div>
-
-          <button
-            disabled={loading}
-            className='submit-button'
-            onClick={submitHandler}
-            style={{ backgroundColor: loading ? 'grey' : '#8a4af3' }}
-          >
-            {loading ? <div class='loader'></div> : null}
-            Submit
-          </button>
+        <div className='upload-file-button'>
+          <label for='image'>Upload image</label>
+          <input
+            type='file'
+            id='image'
+            accept='image/png, image/jpeg'
+            onChange={(e) => {
+              setimgFile(e.target.files[0])
+              setimgUrl(URL.createObjectURL(e.target.files[0]))
+            }}
+          ></input>
         </div>
-      </Navbar>
 
+        <div className='upload-file-button'>
+          <label for='audio'>Upload audio</label>
+          <input
+            type='file'
+            id='audio'
+            accept='audio/*'
+            onChange={(e) => {
+              setaudioFile(e.target.files[0])
+              setaudio(URL.createObjectURL(e.target.files[0]))
+            }}
+          ></input>
+        </div>
+
+        <button
+          disabled={loading}
+          className='submit-button'
+          onClick={submitHandler}
+          style={{ backgroundColor: loading ? 'grey' : '#8a4af3' }}
+        >
+          {loading ? <div class='loader'></div> : null}
+          Submit
+        </button>
+      </Navbar>
       <div
         style={{
           backgroundColor: `${backgroundColor}`,
-          width: '60%',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          marginLeft: '330px',
-          marginTop: '5rem',
         }}
         className='embed-audio-container'
       >
@@ -271,10 +227,8 @@ function CustomizePlayer() {
             </button>
             <div
               style={{
-                // border: '1px solid red',
                 width: '100%',
                 marginTop: '.25rem',
-                // marginLeft: '1rem',
               }}
             >
               <textarea
@@ -346,31 +300,7 @@ function CustomizePlayer() {
         </div>
       </div>
 
-      <div
-        style={{
-          marginLeft: '330px',
-          marginTop: '2rem',
-          width: '60%',
-        }}
-      >
-        <div>
-          <textarea
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              resize: false,
-              float: 'left',
-              border: '1px solid lightgrey',
-              borderRadius: '5px',
-              backgroundColor: '#f1f1f1',
-              padding: '10px',
-            }}
-            rows={3}
-            value={embedUrl}
-          />
-        </div>
-        <div className='audio-player-submit-button'></div>
-      </div>
+      <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
     </>
   )
 }

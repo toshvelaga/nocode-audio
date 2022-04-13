@@ -43,11 +43,13 @@
 .embed-audio-container {
   height: 210px;
   border: 1px solid lightgrey;
-  /* background-color: #1b1b1b; */
-  /* border-radius: 5px; */
+  border-radius: 5px;
   margin: auto;
   display: flex;
-  /* width: 100%; */
+  width: 60%;
+  cursor: pointer;
+  margin-left: 330px;
+  margin-top: 5rem;
 }
 
 input[type='file'] {
@@ -81,11 +83,6 @@ input[type='file'] {
   margin-top: 1rem;
 }
 
-.navbar-inputs {
-  margin-bottom: 2rem;
-  margin-left: 1rem;
-}
-
 .upload-file-button {
   margin-left: 1rem;
   border: 1px dashed grey;
@@ -105,7 +102,6 @@ input[type='file'] {
   color: white;
   border-radius: 5px;
   border: none;
-  /* padding: 1rem 1rem; */
   font-size: 20px;
   width: 85%;
   padding: 1rem;
@@ -143,6 +139,19 @@ input[type='file'] {
 .embed-audio-container:hover .bottom-controls-container {
   display: block;
   transition: all 2s linear;
+}
+
+.embed-url-textarea {
+  width: 60%;
+  box-sizing: border-box;
+  float: left;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  resize: none;
+  margin-left: 330px;
+  margin-top: 2rem;
 }
 
 .loader {
