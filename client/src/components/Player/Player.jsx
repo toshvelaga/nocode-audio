@@ -77,8 +77,8 @@ const Player = (props) => {
       }}
       className='embed-audio-container'
     >
-      <img draggable='false' className='podcast-image' src={props.imgUrl} />
-      <div className='podcast-info'>
+      <img draggable='false' className='image-preview' src={props.imgUrl} />
+      <div className='info'>
         <div className='controls-container'>
           <button className='play-button' onClick={play}>
             {!isPlaying ? (

@@ -34,7 +34,7 @@ router.post('/audio-player', async (req, res) => {
       fontColor,
       audioUrl,
       imageUrl,
-      playButtonColor,
+      playBtnColor,
     ]
   )
 

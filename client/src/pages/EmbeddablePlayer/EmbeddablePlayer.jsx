@@ -53,11 +53,29 @@ const EmbeddablePlayer = () => {
         imgUrl={playerData.imgUrl}
         playBtnColor={playerData.playBtnColor}
         fontColor={playerData.fontColor}
-        title={playerData.title}
-        subtitle={playerData.subtitle}
         progressBarColor={playerData.progressBarColor}
         audioUrl={playerData.audioUrl}
-      />
+      >
+        <p
+          style={{
+            color: `${playerData.fontColor}`,
+            marginBottom: '0',
+            marginTop: '0px',
+            fontSize: '16px',
+          }}
+        >
+          {playerData.title}
+        </p>
+
+        <p
+          style={{
+            color: `${playerData.fontColor}`,
+            marginTop: '5px',
+          }}
+        >
+          {playerData.subtitle}
+        </p>
+      </Player>
     </>
   )
 }
