@@ -35,12 +35,18 @@ $ npm install
 $ npm run dev
 ```
 
-Before running the server side code, create a .env file with the values from .env.example. Then run the following commands:
+Before running the server side code be sure that you have added your AWS and postgres credentials to the .env file.
 
 ```
+
+```
+
 $ cd server
+$ touch .env
+$ cp .env.example .env
 $ npm install
 $ nodemon index.js
+
 ```
 
 ## Contribute
@@ -52,3 +58,4 @@ If you have any questions feel free to email me at toshvelaga@gmail.com
 ## License
 
 MIT © Tosh Velaga
+```
