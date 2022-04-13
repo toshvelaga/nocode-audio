@@ -9,8 +9,7 @@ router.get('/audio-player/:id', async (req, res) => {
     `SELECT * FROM audio_player WHERE audio_player.player_id = $1`,
     [audioPlayerId]
   )
-  console.log(playerData.rows[0])
-  return res.json(playerData.rows[0])
+  res.status(200).json(playerData.rows[0])
 })
 
 router.post('/audio-player', async (req, res) => {
@@ -41,8 +40,7 @@ router.post('/audio-player', async (req, res) => {
 
   const newAudioPlayerId = newAudioPlayer.rows[0].player_id
 
-  console.log(newAudioPlayer.rows[0])
-  return res.json({ id: newAudioPlayerId })
+  res.status(201).json({ id: newAudioPlayerId })
 })
 
 module.exports = router
