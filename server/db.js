@@ -1,7 +1,5 @@
-import pg from 'pg'
-import 'dotenv/config'
-
-const { Pool } = pg
+const { Pool } = require('pg')
+require('dotenv').config()
 
 const devConfig = {
   user: process.env.PG_USER,
@@ -22,4 +20,4 @@ const pool = new Pool(
   process.env.NODE_ENV === 'production' ? proConfig : devConfig
 )
 
-export default pool
+module.exports = pool

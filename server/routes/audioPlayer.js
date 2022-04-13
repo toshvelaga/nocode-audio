@@ -1,6 +1,6 @@
-import express from 'express'
-import pool from '../db.js'
-const router = express.Router()
+const express = require('express'),
+  pool = require('../db'),
+  router = express.Router()
 
 router.get('/audio-player/:id', async (req, res) => {
   const audioPlayerId = req.params.id
@@ -45,4 +45,4 @@ router.post('/audio-player', async (req, res) => {
   return res.json({ id: newAudioPlayerId })
 })
 
-export default router
+module.exports = router

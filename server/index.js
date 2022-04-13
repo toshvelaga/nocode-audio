@@ -1,9 +1,10 @@
-import express from 'express'
-import cors from 'cors'
-import uploadRouter from './routes/upload.js'
-import audioPlayerRouter from './routes/audioPlayer.js'
+const express = require('express')
+const cors = require('cors')
 const app = express()
 const PORT = 5001
+
+const uploadRouter = require('./routes/upload')
+const audioPlayerRouter = require('./routes/audioPlayer')
 
 app.use(cors())
 app.use(express.json())

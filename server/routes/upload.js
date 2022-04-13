@@ -1,11 +1,12 @@
-import express from 'express'
-import AWS from 'aws-sdk'
-import multer from 'multer'
-import sharp from 'sharp'
-import { uuid } from 'uuidv4'
-import 'dotenv/config'
+const express = require('express'),
+  router = express.Router(),
+  AWS = require('aws-sdk'),
+  multer = require('multer'),
+  sharp = require('sharp'),
+  { uuid } = require('uuidv4')
+require('dotenv').config()
 
-const router = express.Router()
+console.log(process.env.AWS_ACCESS_KEY_ID)
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ID,
@@ -59,4 +60,4 @@ router.post('/audio', upload.single('audio'), (req, res) => {
   })
 })
 
-export default router
+module.exports = router
