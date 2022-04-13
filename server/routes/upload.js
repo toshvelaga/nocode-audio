@@ -29,11 +29,13 @@ router.post('/image', upload.single('image'), async (req, res) => {
 
   s3.upload(params, (error, data) => {
     if (error) {
+      console.log(error)
       res.status(401).json({
         image: "Error occured while uploading image. Don't leave blank",
       })
     }
-    console.log(data)
+
+    // console.log(data)
 
     res.status(200).send(data)
   })
