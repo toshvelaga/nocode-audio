@@ -43,7 +43,6 @@ $ touch .env
 $ cp .env.example .env
 $ npm install
 $ nodemon index.js
-
 ```
 
 ## Contribute
