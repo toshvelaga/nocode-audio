@@ -1,5 +1,6 @@
 body {
   font-family: var(--main-font-light);
+  margin: 0;
 }
 
 .submit-button {
