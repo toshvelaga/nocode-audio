@@ -21,7 +21,7 @@ router.post('/audio-player', async (req, res) => {
     fontColor,
     audioUrl,
     imageUrl,
-    playButtonColor,
+    playBtnColor,
   } = req.body
 
   const newAudioPlayer = await pool.query(
