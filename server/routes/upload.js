@@ -12,17 +12,10 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET,
 })
 
-const storage = multer.memoryStorage({
-  destination: function (req, file, callback) {
-    callback(null, '')
-  },
-})
-
-const upload = multer({ storage }).single('image')
-const audioupload = multer({ storage }).single('audio')
+const upload = multer()
 
 // upload image
-router.post('/images', upload, async (req, res) => {
+router.post('/image', upload.single('image'), async (req, res) => {
   const myFile = req.file.originalname.split('.')
   const fileType = myFile[myFile.length - 1]
 
@@ -40,13 +33,14 @@ router.post('/images', upload, async (req, res) => {
         image: "Error occured while uploading image. Don't leave blank",
       })
     }
+    console.log(data)
 
     res.status(200).send(data)
   })
 })
 
 // upload audio
-router.post('/audio', audioupload, (req, res) => {
+router.post('/audio', upload.single('audio'), (req, res) => {
   const myFile = req.file.originalname.split('.')
   const fileType = myFile[myFile.length - 1]
 

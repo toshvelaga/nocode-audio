@@ -4,8 +4,8 @@ import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../../components/Slider/Slider'
 import ControlPanel from '../../components/Controls/ControlPanel'
-import './CustomizePlayer.css'
 import Navbar from '../../components/Navbar/Navbar'
+import './CustomizePlayer.css'
 
 function CustomizePlayer() {
   const [percentage, setPercentage] = useState()
@@ -24,11 +24,12 @@ function CustomizePlayer() {
     'Hacktivism and the limits of Open Source'
   )
   const [imgUrl, setimgUrl] = useState('https://i.ibb.co/98ck5mT/aaron.jpg')
+  const [imgFile, setimgFile] = useState('')
   const [audioUrl, setaudio] = useState(
     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
   )
+  const [audioFile, setaudioFile] = useState('')
 
-  const [textareaValue, setTextareaValue] = useState('')
   const [buttonTitle, setbuttonTitle] = useState('Copy Embed Link')
 
   const [embedUrl, setembedUrl] = useState(
@@ -93,15 +94,47 @@ function CustomizePlayer() {
     }
   }
 
-  const submitHandler = () => {
-    API.post('audio-player', {
+  const submitHandler = async () => {
+    // send image and audio files to AWS S3 and get the urls
+    const data = await Promise.all([
+      sendFileToAWS('image', imgFile),
+      sendFileToAWS('audio', audioFile),
+    ]).then(([imgUrl, audioUrl]) => {
+      console.log({ imgUrl, audioUrl })
+      return { imgUrl, audioUrl }
+    })
+    // send all data including AWS s3 urls to postgresql
+    sendDataToDb(data.imgUrl, data.audioUrl)
+  }
+
+  const sendFileToAWS = async (fileType, file) => {
+    const formData = new FormData()
+    formData.append(fileType, file)
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    }
+
+    const data = await API.post(`/uploads/${fileType}`, formData, config).then(
+      (res) => {
+        return res.data.Location
+      }
+    )
+
+    return data
+  }
+
+  const sendDataToDb = async (image, audio) => {
+    await API.post('audio-player', {
       title,
       subtitle,
       backgroundColor,
       progressBarColor,
       fontColor,
-      audioUrl,
-      imageUrl: imgUrl,
+      imageUrl: image,
+      audioUrl: audio,
     })
       .then((res) => {
         setembedUrl(
@@ -171,7 +204,8 @@ function CustomizePlayer() {
               name='avatar'
               accept='image/png, image/jpeg'
               onChange={(e) => {
-                console.log(e.target.files[0])
+                // console.log(e.target.files[0])
+                setimgFile(e.target.files[0])
                 setimgUrl(URL.createObjectURL(e.target.files[0]))
               }}
             ></input>
@@ -186,6 +220,7 @@ function CustomizePlayer() {
               accept='audio/*'
               onChange={(e) => {
                 console.log(e.target.files[0])
+                setaudioFile(e.target.files[0])
                 setaudio(URL.createObjectURL(e.target.files[0]))
               }}
             ></input>
@@ -234,6 +269,7 @@ function CustomizePlayer() {
                   fontSize: '16px',
                   fontWeight: 400,
                   resize: 'none',
+                  color: `${fontColor}`,
                 }}
                 maxLength='40'
                 value={title}
@@ -249,6 +285,7 @@ function CustomizePlayer() {
                   fontSize: '16px',
                   fontWeight: 400,
                   resize: 'none',
+                  color: `${fontColor}`,
                 }}
                 maxLength='85'
                 value={subtitle}
