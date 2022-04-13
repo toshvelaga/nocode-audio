@@ -45,6 +45,11 @@
   margin-top: 1rem;
 }
 
+.title,
+.subtitle {
+  font-family: var(--main-font-light);
+}
+
 .skip-buttons {
   background: transparent;
   border: none;

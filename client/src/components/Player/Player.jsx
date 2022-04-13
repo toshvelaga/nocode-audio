@@ -98,6 +98,7 @@ const Player = (props) => {
                 resize: 'none',
                 color: `${props.fontColor}`,
               }}
+              className='title'
               maxLength='40'
               value={props.title}
               rows='1'
@@ -114,6 +115,7 @@ const Player = (props) => {
                 resize: 'none',
                 color: `${props.fontColor}`,
               }}
+              className='subtitle'
               maxLength='85'
               value={props.subtitle}
               // onChange={(e) => setsubtitle(e.target.value)}
