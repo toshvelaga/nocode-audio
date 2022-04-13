@@ -76,7 +76,7 @@ function CustomizePlayer() {
     })
       .then((res) => {
         setembedUrl(
-          `<iframe src="https://audioplayr.netlify.app/embed/${res.data.id}" width="60%" height="220" frameBorder="0" scrolling="no"></iframe>`
+          `<iframe src="${window.location.href}embed/${res.data.id}" width="60%" height="220" frameBorder="0" scrolling="no"></iframe>`
         )
       })
       .catch((err) => {
