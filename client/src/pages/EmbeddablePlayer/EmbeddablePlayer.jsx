@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import API from '../../api/api'
 import Player from '../../components/Player/Player'
+import './EmbeddablePlayer.css'
 
 const EmbeddablePlayer = () => {
   const { id } = useParams()
@@ -26,8 +27,8 @@ const EmbeddablePlayer = () => {
           font_color,
           title,
           subtitle,
-          audio_url,
           image_url,
+          audio_url,
         } = res.data
 
         setplayerData({
@@ -57,20 +58,18 @@ const EmbeddablePlayer = () => {
         audioUrl={playerData.audioUrl}
       >
         <p
+          className='embed-title'
           style={{
             color: `${playerData.fontColor}`,
-            marginBottom: '0',
-            marginTop: '0px',
-            fontSize: '16px',
           }}
         >
           {playerData.title}
         </p>
 
         <p
+          className='embed-subtitle'
           style={{
             color: `${playerData.fontColor}`,
-            marginTop: '5px',
           }}
         >
           {playerData.subtitle}

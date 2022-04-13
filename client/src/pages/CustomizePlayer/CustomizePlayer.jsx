@@ -76,7 +76,7 @@ function CustomizePlayer() {
     })
       .then((res) => {
         setembedUrl(
-          `<iframe src="${window.location.href}embed/${res.data.id}" width="60%" height="220" frameBorder="0" scrolling="no"></iframe>`
+          `<iframe src="${window.location.href}embed/${res.data.id}" width="100%" height="220" frameBorder="0" scrolling="no"></iframe>`
         )
       })
       .catch((err) => {
