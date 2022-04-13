@@ -10,24 +10,24 @@ import './CustomizePlayer.css'
 
 function CustomizePlayer() {
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
-  const [playBtnColor, setplayBtnColor] = useState('#d72830')
+  const [playBtnColor, setPlayBtnColor] = useState('#d72830')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
-  const [fontColor, setfontColor] = useState('black')
+  const [fontColor, setFontColor] = useState('black')
   const [title, setTitle] = useState('Hacker Music')
-  const [subtitle, setsubtitle] = useState('An EDM song I found online')
-  const [imgUrl, setimgUrl] = useState(constants.exampleImg)
-  const [imgFile, setimgFile] = useState('')
-  const [audioUrl, setaudio] = useState(constants.exampleAudio)
-  const [audioFile, setaudioFile] = useState('')
+  const [subtitle, setSubtitle] = useState('An EDM song I found online')
+  const [imgUrl, setImgUrl] = useState(constants.exampleImg)
+  const [imgFile, setImgFile] = useState('')
+  const [audioUrl, setAudio] = useState(constants.exampleAudio)
+  const [audioFile, setAudioFile] = useState('')
 
-  const [loading, setloading] = useState(false)
-  const [embedUrl, setembedUrl] = useState(constants.exampleEmbedUrl)
+  const [loading, setLoading] = useState(false)
+  const [embedUrl, setEmbedUrl] = useState(constants.exampleEmbedUrl)
 
   const submitHandler = async () => {
     if (!imgFile || !audioFile) {
       toast.error('Please upload both image and audio files.')
     } else {
-      setloading(true)
+      setLoading(true)
       // send image and audio files to AWS S3 and get the urls
       const data = await Promise.all([
         sendFileToAWS('image', imgFile),
@@ -37,7 +37,7 @@ function CustomizePlayer() {
       })
       // send all data including AWS s3 urls to postgresql
       sendDataToDb(data.imgUrl, data.audioUrl)
-      setloading(false)
+      setLoading(false)
       toast.success('Media Successfully Uploaded!')
     }
   }
@@ -75,7 +75,7 @@ function CustomizePlayer() {
       audioUrl: audio,
     })
       .then((res) => {
-        setembedUrl(
+        setEmbedUrl(
           `<iframe src="${window.location.href}embed/${res.data.id}" width="100%" height="220" frameBorder="0" scrolling="no"></iframe>`
         )
       })
@@ -97,7 +97,7 @@ function CustomizePlayer() {
           elemColor='playBtnColor'
           title='Play button color: '
           value={playBtnColor}
-          onChange={(e) => setplayBtnColor(e.target.value)}
+          onChange={(e) => setPlayBtnColor(e.target.value)}
         />
         <ColorPicker
           elemColor='progressBarColor'
@@ -109,7 +109,7 @@ function CustomizePlayer() {
           elemColor='fontColor'
           title='Font color: '
           value={fontColor}
-          onChange={(e) => setfontColor(e.target.value)}
+          onChange={(e) => setFontColor(e.target.value)}
         />
 
         <FileUpload
@@ -117,8 +117,8 @@ function CustomizePlayer() {
           title='Upload image'
           accept={'image/png, image/jpeg'}
           onChange={(e) => {
-            setimgFile(e.target.files[0])
-            setimgUrl(URL.createObjectURL(e.target.files[0]))
+            setImgFile(e.target.files[0])
+            setImgUrl(URL.createObjectURL(e.target.files[0]))
           }}
         />
 
@@ -127,8 +127,8 @@ function CustomizePlayer() {
           title='Upload audio'
           accept={'audio/*'}
           onChange={(e) => {
-            setaudioFile(e.target.files[0])
-            setaudio(URL.createObjectURL(e.target.files[0]))
+            setAudioFile(e.target.files[0])
+            setAudio(URL.createObjectURL(e.target.files[0]))
           }}
         />
 
@@ -172,7 +172,7 @@ function CustomizePlayer() {
             className='subtitle'
             maxLength='85'
             value={subtitle}
-            onChange={(e) => setsubtitle(e.target.value)}
+            onChange={(e) => setSubtitle(e.target.value)}
           />
         </Player>
 

@@ -7,7 +7,7 @@ import './EmbeddablePlayer.css'
 const EmbeddablePlayer = () => {
   const { id } = useParams()
 
-  const [playerData, setplayerData] = useState({
+  const [playerData, setPlayerData] = useState({
     backgroundColor: '',
     progressBarColor: '',
     fontColor: '',
@@ -31,7 +31,7 @@ const EmbeddablePlayer = () => {
           audio_url,
         } = res.data
 
-        setplayerData({
+        setPlayerData({
           backgroundColor: background_color,
           playBtnColor: play_button_color,
           progressBarColor: progress_bar_color,
