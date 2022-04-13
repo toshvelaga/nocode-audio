@@ -8,9 +8,9 @@ Frontend tech stack:
 
 - React JS
 - CSS
-- React Router
+- React Router v6
 - [React Icons](https://react-icons.github.io/react-icons/)
-- Vite JS
+- Vite
 
 Backend tech stack:
 
@@ -25,7 +25,7 @@ Production site is deployed to [https://audioplayr.netlify.app/](https://audiopl
 
 ## Installation
 
-To run this project use the following commands:
+To run the client side code use the following commands:
 
 ```
 $ cd client
@@ -33,15 +33,13 @@ $ npm install
 $ npm run dev
 ```
 
-to run the Node JS server:
+Before running the server side code, create a .env file with the values from .env.example. Then run the following commands:
 
 ```
 $ cd server
 $ npm install
 $ nodemon index.js
 ```
-
-In the root directory create a .env file with the values from env.txt
 
 ## Contribute
 
