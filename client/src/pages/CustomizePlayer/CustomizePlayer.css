@@ -81,17 +81,3 @@ body {
   margin-top: 5rem;
   width: 60%;
 }
-
-/* @media only screen and (max-width: 1000px) {
-	.podcast-audio-container {
-		width: 80%;
-		margin: auto;
-	}
-}
-
-@media only screen and (max-width: 600px) {
-	.podcast-audio-container {
-		width: 90%;
-		margin: auto;
-	}
-} */

@@ -28,7 +28,6 @@
 .info {
   position: relative;
   top: 50%;
-  /* margin-left: 1rem; */
   margin-right: 1rem;
   width: 80%;
   transform: translateY(-50%);
@@ -71,4 +70,15 @@
 
 .audio-player-controls {
   display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+  .image-preview {
+    display: none;
+  }
+
+  .info {
+    width: 100%;
+    margin-left: 1rem;
+  }
 }
