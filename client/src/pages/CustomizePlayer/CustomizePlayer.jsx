@@ -5,6 +5,7 @@ import ColorPicker from '../../components/ColorPicker/ColorPicker'
 import constants from '../../constants/constants'
 import FileUpload from '../../components/FileUpload/FileUpload'
 import Player from '../../components/Player/Player'
+import toast, { Toaster } from 'react-hot-toast'
 import './CustomizePlayer.css'
 
 function CustomizePlayer() {
@@ -23,18 +24,22 @@ function CustomizePlayer() {
   const [embedUrl, setembedUrl] = useState(constants.exampleEmbedUrl)
 
   const submitHandler = async () => {
-    setloading(true)
-    // send image and audio files to AWS S3 and get the urls
-    const data = await Promise.all([
-      sendFileToAWS('image', imgFile),
-      sendFileToAWS('audio', audioFile),
-    ]).then(([imgUrl, audioUrl]) => {
-      console.log({ imgUrl, audioUrl })
-      return { imgUrl, audioUrl }
-    })
-    // send all data including AWS s3 urls to postgresql
-    sendDataToDb(data.imgUrl, data.audioUrl)
-    setloading(false)
+    if (!imgFile || !audioFile) {
+      toast.error('Please upload both image and audio files.')
+    } else {
+      setloading(true)
+      // send image and audio files to AWS S3 and get the urls
+      const data = await Promise.all([
+        sendFileToAWS('image', imgFile),
+        sendFileToAWS('audio', audioFile),
+      ]).then(([imgUrl, audioUrl]) => {
+        return { imgUrl, audioUrl }
+      })
+      // send all data including AWS s3 urls to postgresql
+      sendDataToDb(data.imgUrl, data.audioUrl)
+      setloading(false)
+      toast.success('Media Successfully Uploaded!')
+    }
   }
 
   const sendFileToAWS = async (fileType, file) => {
@@ -71,7 +76,7 @@ function CustomizePlayer() {
     })
       .then((res) => {
         setembedUrl(
-          `<iframe src="https://audioplayr.netlify.app/embed/${res.data.id}" width="100%" height="200" frameBorder="0" scrolling="no"></iframe>`
+          `<iframe src="https://audioplayr.netlify.app/embed/${res.data.id}" width="60%" height="220" frameBorder="0" scrolling="no"></iframe>`
         )
       })
       .catch((err) => {
@@ -134,7 +139,7 @@ function CustomizePlayer() {
           style={{ backgroundColor: loading ? 'grey' : '#8a4af3' }}
         >
           {loading ? <div class='loader'></div> : null}
-          Submit
+          Save
         </button>
       </Navbar>
 
@@ -148,9 +153,32 @@ function CustomizePlayer() {
           subtitle={subtitle}
           progressBarColor={progressBarColor}
           audioUrl={audioUrl}
-        />
+        >
+          <textarea
+            style={{
+              color: `${fontColor}`,
+            }}
+            className='title'
+            maxLength='40'
+            value={title}
+            rows='1'
+            onChange={(e) => setTitle(e.target.value)}
+          />
+
+          <textarea
+            style={{
+              color: `${fontColor}`,
+            }}
+            className='subtitle'
+            maxLength='85'
+            value={subtitle}
+            onChange={(e) => setsubtitle(e.target.value)}
+          />
+        </Player>
+
         <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
       </div>
+      <Toaster />
     </>
   )
 }

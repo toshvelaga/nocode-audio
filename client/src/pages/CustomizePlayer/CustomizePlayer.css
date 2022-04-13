@@ -21,6 +21,17 @@ body {
   background-color: #7c42da;
 }
 
+.title,
+.subtitle {
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  resize: none;
+  font-family: var(--main-font-light);
+}
+
 .embed-url-textarea {
   width: 100%;
   box-sizing: border-box;
@@ -28,7 +39,7 @@ body {
   border: 1px solid lightgrey;
   border-radius: 5px;
   background-color: #f1f1f1;
-  padding: 10px;
+  padding: 1rem;
   resize: none;
   margin-top: 2rem;
   font-family: var(--main-font-light);

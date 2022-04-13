@@ -87,40 +87,7 @@ const Player = (props) => {
               <FaPauseCircle color={props.playBtnColor} size={70} />
             )}
           </button>
-          <div className='titles-container'>
-            <textarea
-              style={{
-                border: 'none',
-                backgroundColor: 'transparent',
-                width: '100%',
-                fontSize: '16px',
-                fontWeight: 400,
-                resize: 'none',
-                color: `${props.fontColor}`,
-              }}
-              className='title'
-              maxLength='40'
-              value={props.title}
-              rows='1'
-              // onChange={(e) => setTitle(e.target.value)}
-            />
-
-            <textarea
-              style={{
-                border: 'none',
-                backgroundColor: 'transparent',
-                width: '100%',
-                fontSize: '16px',
-                fontWeight: 400,
-                resize: 'none',
-                color: `${props.fontColor}`,
-              }}
-              className='subtitle'
-              maxLength='85'
-              value={props.subtitle}
-              // onChange={(e) => setsubtitle(e.target.value)}
-            />
-          </div>
+          <div className='titles-container'>{props.children}</div>
         </div>
         <div style={{ marginTop: '.5rem' }}>
           <Slider

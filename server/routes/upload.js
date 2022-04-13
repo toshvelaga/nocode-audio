@@ -3,7 +3,7 @@ const express = require('express'),
   AWS = require('aws-sdk'),
   multer = require('multer'),
   sharp = require('sharp'),
-  { uuid } = require('uuidv4')
+  { v4: uuidv4 } = require('uuid')
 
 require('dotenv').config()
 
@@ -28,7 +28,7 @@ router.post('/image', upload.single('image'), (req, res) => {
 
     const params = {
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `cover_artwork/${uuid()}.${fileType}`,
+      Key: `cover_artwork/${uuidv4()}.${fileType}`,
       Body: resizedFile,
     }
 
@@ -52,7 +52,7 @@ router.post('/audio', upload.single('audio'), (req, res) => {
 
     const params = {
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `audio/${uuid()}.${fileType}`,
+      Key: `audio/${uuidv4()}.${fileType}`,
       Body: req.file.buffer,
     }
 
