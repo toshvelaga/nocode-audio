@@ -54,7 +54,3 @@ If you have any questions feel free to email me at toshvelaga@gmail.com
 ## License
 
 MIT © Tosh Velaga
-
-```
-
-```
