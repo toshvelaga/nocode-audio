@@ -3,9 +3,9 @@ import API from '../../api/api'
 import Navbar from '../../components/Navbar/Navbar'
 import ColorPicker from '../../components/ColorPicker/ColorPicker'
 import constants from '../../constants/constants'
-import './CustomizePlayer.css'
 import FileUpload from '../../components/FileUpload/FileUpload'
 import Player from '../../components/Player/Player'
+import './CustomizePlayer.css'
 
 function CustomizePlayer() {
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
@@ -138,18 +138,19 @@ function CustomizePlayer() {
         </button>
       </Navbar>
 
-      <Player
-        backgroundColor={backgroundColor}
-        imgUrl={imgUrl}
-        playBtnColor={playBtnColor}
-        fontColor={fontColor}
-        title={title}
-        subtitle={subtitle}
-        progressBarColor={progressBarColor}
-        audioUrl={audioUrl}
-      />
-
-      <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
+      <div className='customize-player-container'>
+        <Player
+          backgroundColor={backgroundColor}
+          imgUrl={imgUrl}
+          playBtnColor={playBtnColor}
+          fontColor={fontColor}
+          title={title}
+          subtitle={subtitle}
+          progressBarColor={progressBarColor}
+          audioUrl={audioUrl}
+        />
+        <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
+      </div>
     </>
   )
 }

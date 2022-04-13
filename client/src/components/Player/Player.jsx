@@ -86,12 +86,7 @@ const Player = (props) => {
               <FaPauseCircle color={props.playBtnColor} size={70} />
             )}
           </button>
-          <div
-            style={{
-              width: '100%',
-              marginTop: '.25rem',
-            }}
-          >
+          <div className='titles-container'>
             <textarea
               style={{
                 border: 'none',
@@ -120,7 +115,7 @@ const Player = (props) => {
               }}
               maxLength='85'
               value={props.subtitle}
-              //   onChange={(e) => setsubtitle(e.target.value)}
+              // onChange={(e) => setsubtitle(e.target.value)}
             />
           </div>
         </div>

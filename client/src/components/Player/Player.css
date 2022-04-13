@@ -1,3 +1,13 @@
+.embed-audio-container {
+  height: 210px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  margin: auto;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+
 .bottom-controls-container {
   display: none;
   text-align: center;
@@ -64,16 +74,4 @@
   /* max-width: 300px; */
   display: flex;
   /* flex-wrap: wrap; */
-}
-
-.embed-audio-container {
-  height: 210px;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  margin: auto;
-  display: flex;
-  width: 60%;
-  cursor: pointer;
-  margin-left: 330px;
-  margin-top: 5rem;
 }
