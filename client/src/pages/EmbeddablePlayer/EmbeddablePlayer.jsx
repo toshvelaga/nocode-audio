@@ -145,7 +145,6 @@ const EmbeddablePlayer = () => {
             </button>
             <div style={{ width: '70%' }}>
               <h3
-                contenteditable='true'
                 style={{
                   marginBottom: '.3em',
                   marginTop: 0,

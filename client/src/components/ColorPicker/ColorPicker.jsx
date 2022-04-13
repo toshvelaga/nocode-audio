@@ -1,10 +1,10 @@
 import React from 'react'
-import './NavbarInput.css'
+import './ColorPicker.css'
 
-const NavbarInput = (props) => {
+const ColorPicker = (props) => {
   return (
-    <div className='navbar-inputs'>
-      <label for={props.elemColor}>{props.title} </label>
+    <div className='color-picker'>
+      <label htmlFor={props.elemColor}>{props.title} </label>
       <input
         type='color'
         id={props.elemColor}
@@ -15,4 +15,4 @@ const NavbarInput = (props) => {
   )
 }
 
-export default NavbarInput
+export default ColorPicker

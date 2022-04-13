@@ -1,21 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import API from '../../api/api'
-import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
-import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
-import Slider from '../../components/Slider/Slider'
-import ControlPanel from '../../components/Controls/ControlPanel'
 import Navbar from '../../components/Navbar/Navbar'
-import NavbarInput from '../../components/Navbar/NavbarInput'
+import ColorPicker from '../../components/ColorPicker/ColorPicker'
 import constants from '../../constants/constants'
 import './CustomizePlayer.css'
+import FileUpload from '../../components/FileUpload/FileUpload'
+import Player from '../../components/Player/Player'
 
 function CustomizePlayer() {
-  const [percentage, setPercentage] = useState()
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [duration, setDuration] = useState(0)
-  const [currentTime, setCurrentTime] = useState()
-  const [speed, setSpeed] = useState(1)
-
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1')
   const [playBtnColor, setplayBtnColor] = useState('#d72830')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
@@ -29,64 +21,6 @@ function CustomizePlayer() {
 
   const [loading, setloading] = useState(false)
   const [embedUrl, setembedUrl] = useState(constants.exampleEmbedUrl)
-
-  const audioRef = useRef()
-
-  useEffect(() => {
-    const audio = audioRef.current
-    audio.playbackRate = speed
-  }, [speed])
-
-  const onChange = (e) => {
-    const audio = audioRef.current
-    audio.currentTime = (audio.duration / 100) * e.target.value
-    setPercentage(e.target.value)
-  }
-
-  const play = () => {
-    const audio = audioRef.current
-    audio.volume = 0.1
-
-    if (!isPlaying) {
-      setIsPlaying(true)
-      audio.play()
-    }
-
-    if (isPlaying) {
-      setIsPlaying(false)
-      audio.pause()
-    }
-  }
-
-  const getCurrDuration = (e) => {
-    const percent = (
-      (e.currentTarget.currentTime / e.currentTarget.duration) *
-      100
-    ).toFixed(2)
-
-    const time = e.currentTarget.currentTime
-
-    setPercentage(+percent)
-    setCurrentTime(time.toFixed(2))
-  }
-
-  const changeSpeed = () => {
-    if (speed >= 2) {
-      setSpeed(0.5)
-    } else setSpeed(speed + 0.5)
-  }
-
-  const skip = (time) => {
-    const audio = audioRef.current
-
-    if (time == 'back') {
-      console.log('15')
-      audio.currentTime -= 15
-    } else if (time == 'fwd') {
-      console.log('15')
-      audio.currentTime += 15
-    }
-  }
 
   const submitHandler = async () => {
     setloading(true)
@@ -148,56 +82,50 @@ function CustomizePlayer() {
   return (
     <>
       <Navbar>
-        <NavbarInput
+        <ColorPicker
           elemColor='backgroundColor'
           title='Background color: '
           value={backgroundColor}
           onChange={(e) => setBackgroundColor(e.target.value)}
         />
-        <NavbarInput
+        <ColorPicker
           elemColor='playBtnColor'
           title='Play button color: '
           value={playBtnColor}
           onChange={(e) => setplayBtnColor(e.target.value)}
         />
-        <NavbarInput
+        <ColorPicker
           elemColor='progressBarColor'
           title='Progress bar color: '
           value={progressBarColor}
           onChange={(e) => setProgressBarColor(e.target.value)}
         />
-        <NavbarInput
+        <ColorPicker
           elemColor='fontColor'
           title='Font color: '
           value={fontColor}
           onChange={(e) => setfontColor(e.target.value)}
         />
 
-        <div className='upload-file-button'>
-          <label for='image'>Upload image</label>
-          <input
-            type='file'
-            id='image'
-            accept='image/png, image/jpeg'
-            onChange={(e) => {
-              setimgFile(e.target.files[0])
-              setimgUrl(URL.createObjectURL(e.target.files[0]))
-            }}
-          ></input>
-        </div>
+        <FileUpload
+          fileType='image'
+          title='Upload image'
+          accept={'image/png, image/jpeg'}
+          onChange={(e) => {
+            setimgFile(e.target.files[0])
+            setimgUrl(URL.createObjectURL(e.target.files[0]))
+          }}
+        />
 
-        <div className='upload-file-button'>
-          <label for='audio'>Upload audio</label>
-          <input
-            type='file'
-            id='audio'
-            accept='audio/*'
-            onChange={(e) => {
-              setaudioFile(e.target.files[0])
-              setaudio(URL.createObjectURL(e.target.files[0]))
-            }}
-          ></input>
-        </div>
+        <FileUpload
+          fileType='audio'
+          title='Upload audio'
+          accept={'audio/*'}
+          onChange={(e) => {
+            setaudioFile(e.target.files[0])
+            setaudio(URL.createObjectURL(e.target.files[0]))
+          }}
+        />
 
         <button
           disabled={loading}
@@ -209,96 +137,17 @@ function CustomizePlayer() {
           Submit
         </button>
       </Navbar>
-      <div
-        style={{
-          backgroundColor: `${backgroundColor}`,
-        }}
-        className='embed-audio-container'
-      >
-        <img draggable='false' className='podcast-image' src={imgUrl} />
-        <div className='podcast-info'>
-          <div className='controls-container'>
-            <button className='play-button' onClick={play}>
-              {!isPlaying ? (
-                <FaPlayCircle color={playBtnColor} size={70} />
-              ) : (
-                <FaPauseCircle color={playBtnColor} size={70} />
-              )}
-            </button>
-            <div
-              style={{
-                width: '100%',
-                marginTop: '.25rem',
-              }}
-            >
-              <textarea
-                style={{
-                  border: 'none',
-                  backgroundColor: 'transparent',
-                  width: '100%',
-                  fontSize: '16px',
-                  fontWeight: 400,
-                  resize: 'none',
-                  color: `${fontColor}`,
-                }}
-                maxLength='40'
-                value={title}
-                rows='1'
-                onChange={(e) => setTitle(e.target.value)}
-              />
 
-              <textarea
-                style={{
-                  border: 'none',
-                  backgroundColor: 'transparent',
-                  width: '100%',
-                  fontSize: '16px',
-                  fontWeight: 400,
-                  resize: 'none',
-                  color: `${fontColor}`,
-                }}
-                maxLength='85'
-                value={subtitle}
-                onChange={(e) => setsubtitle(e.target.value)}
-              />
-            </div>
-          </div>
-          <div style={{ marginTop: '.5rem' }}>
-            <Slider
-              backgroundColor={progressBarColor}
-              percentage={percentage}
-              onChange={onChange}
-            />
-            <div>
-              <ControlPanel
-                play={play}
-                isPlaying={isPlaying}
-                duration={duration}
-                currentTime={currentTime}
-              />
-            </div>
-          </div>
-          <div className='bottom-controls-container'>
-            <button className='skip-buttons' onClick={() => skip('back')}>
-              <BsArrowCounterclockwise color='#535353' size={22} />
-            </button>
-            <button className='speed-button' onClick={() => changeSpeed()}>
-              {speed}x
-            </button>
-            <button className='skip-buttons' onClick={() => skip('fwd')}>
-              <BsArrowClockwise color='#535353' size={22} />
-            </button>
-          </div>
-          <audio
-            ref={audioRef}
-            onTimeUpdate={getCurrDuration}
-            onLoadedData={(e) => {
-              setDuration(e.currentTarget.duration.toFixed(2))
-            }}
-            src={audioUrl}
-          />
-        </div>
-      </div>
+      <Player
+        backgroundColor={backgroundColor}
+        imgUrl={imgUrl}
+        playBtnColor={playBtnColor}
+        fontColor={fontColor}
+        title={title}
+        subtitle={subtitle}
+        progressBarColor={progressBarColor}
+        audioUrl={audioUrl}
+      />
 
       <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
     </>

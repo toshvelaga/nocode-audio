@@ -1,0 +1,17 @@
+.upload-file-button {
+  margin-left: 1rem;
+  border: 1px dashed grey;
+  border-radius: 5px;
+  width: 85%;
+  padding: 0.75rem 0rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.upload-file-button:hover {
+  background-color: lightgrey;
+}
+
+input[type='file'] {
+  display: none;
+}
