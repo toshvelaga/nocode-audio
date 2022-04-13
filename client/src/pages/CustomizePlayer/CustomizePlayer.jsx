@@ -148,6 +148,14 @@ function CustomizePlayer() {
       })
   }
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(embedUrl)
+    setbuttonTitle('Copied!')
+    setTimeout(() => {
+      setbuttonTitle('Copy Embed Link')
+    }, 2500)
+  }
+
   return (
     <>
       <Navbar>
@@ -348,7 +356,7 @@ function CustomizePlayer() {
         <div>
           <textarea
             style={{
-              width: '67.5%',
+              width: '100%',
               boxSizing: 'border-box',
               resize: false,
               float: 'left',
@@ -361,21 +369,7 @@ function CustomizePlayer() {
             value={embedUrl}
           />
         </div>
-        <div className='audio-player-submit-button'>
-          <button
-            style={{ width: '30%', float: 'right' }}
-            className='copy-button'
-            onClick={() => {
-              navigator.clipboard.writeText(embedUrl)
-              setbuttonTitle('Copied!')
-              setTimeout(() => {
-                setbuttonTitle('Copy Embed Link')
-              }, 2500)
-            }}
-          >
-            {buttonTitle}
-          </button>
-        </div>
+        <div className='audio-player-submit-button'></div>
       </div>
     </>
   )
