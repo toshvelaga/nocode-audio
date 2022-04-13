@@ -111,6 +111,8 @@ input[type='file'] {
   padding: 1rem;
   margin-left: 1rem;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 .copy-button {
@@ -141,6 +143,36 @@ input[type='file'] {
 .embed-audio-container:hover .bottom-controls-container {
   display: block;
   transition: all 2s linear;
+}
+
+.loader {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid transparent;
+  /* border-bottom: 16px solid white; */
+  width: 1rem;
+  height: 1rem;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* @media only screen and (max-width: 1000px) {

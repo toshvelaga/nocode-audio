@@ -18,7 +18,6 @@ function CustomizePlayer() {
   const [playBtnColor, setplayBtnColor] = useState('#d72830')
   const [progressBarColor, setProgressBarColor] = useState('#1bb953')
   const [fontColor, setfontColor] = useState('black')
-
   const [title, setTitle] = useState('The Story of Aaron Schwartz')
   const [subtitle, setsubtitle] = useState(
     'Hacktivism and the limits of Open Source'
@@ -30,11 +29,12 @@ function CustomizePlayer() {
   )
   const [audioFile, setaudioFile] = useState('')
 
+  const [loading, setloading] = useState(false)
   const [buttonTitle, setbuttonTitle] = useState('Copy Embed Link')
-
   const [embedUrl, setembedUrl] = useState(
     'http://localhost:3000/embed/ca43a8e1-f94c-4b0a-98cb-474ef0879502'
   )
+
   const audioRef = useRef()
 
   useEffect(() => {
@@ -95,6 +95,7 @@ function CustomizePlayer() {
   }
 
   const submitHandler = async () => {
+    setloading(true)
     // send image and audio files to AWS S3 and get the urls
     const data = await Promise.all([
       sendFileToAWS('image', imgFile),
@@ -105,6 +106,7 @@ function CustomizePlayer() {
     })
     // send all data including AWS s3 urls to postgresql
     sendDataToDb(data.imgUrl, data.audioUrl)
+    setloading(false)
   }
 
   const sendFileToAWS = async (fileType, file) => {
@@ -226,7 +228,13 @@ function CustomizePlayer() {
             ></input>
           </div>
 
-          <button className='submit-button' onClick={submitHandler}>
+          <button
+            disabled={loading}
+            className='submit-button'
+            onClick={submitHandler}
+            style={{ backgroundColor: loading ? 'grey' : '#8a4af3' }}
+          >
+            {loading ? <div class='loader'></div> : null}
             Submit
           </button>
         </div>
