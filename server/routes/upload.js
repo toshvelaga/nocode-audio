@@ -6,7 +6,7 @@ const express = require('express'),
   { uuid } = require('uuidv4')
 require('dotenv').config()
 
-console.log(process.env.AWS_ACCESS_KEY_ID)
+console.log(process.env.AWS_ID)
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ID,
