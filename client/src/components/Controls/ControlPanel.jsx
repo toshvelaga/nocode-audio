@@ -1,7 +1,7 @@
 import React from 'react'
 import './ControlPanel.css'
 
-function ControlPanel({ play, isPlaying, duration, currentTime, style }) {
+function ControlPanel({ duration, currentTime, style }) {
   function secondsToHms(seconds) {
     if (!seconds) return '00m 00s'
 
@@ -39,7 +39,6 @@ function ControlPanel({ play, isPlaying, duration, currentTime, style }) {
         <div style={style} className='timer'>
           {secondsToHms(duration)}
         </div>
-        {/* <Button play={play} isPlaying={isPlaying} /> */}
       </div>
     </>
   )

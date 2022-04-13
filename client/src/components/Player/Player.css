@@ -63,7 +63,6 @@
   font: inherit;
   cursor: pointer;
   font-size: 12px;
-  /* margin-right: 5px; */
   outline: none;
   vertical-align: top;
   margin-top: 24px;
@@ -71,7 +70,5 @@
 }
 
 .audio-player-controls {
-  /* max-width: 300px; */
   display: flex;
-  /* flex-wrap: wrap; */
 }

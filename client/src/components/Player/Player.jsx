@@ -11,6 +11,7 @@ const Player = (props) => {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState()
   const [speed, setSpeed] = useState(1)
+
   const audioRef = useRef()
 
   useEffect(() => {
