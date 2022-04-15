@@ -77,10 +77,15 @@ const Player = (props) => {
       }}
       className='embed-audio-container'
     >
-      <img draggable='false' className='image-preview' src={props.imgUrl} />
+      <img
+        alt='audio player artwork'
+        draggable='false'
+        className='image-preview'
+        src={props.imgUrl}
+      />
       <div className='info'>
         <div className='controls-container'>
-          <button className='play-button' onClick={play}>
+          <button aria-label='Play' className='play-button' onClick={play}>
             {!isPlaying ? (
               <FaPlayCircle color={props.playBtnColor} size={70} />
             ) : (

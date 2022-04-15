@@ -155,6 +155,7 @@ function CustomizePlayer() {
           audioUrl={audioUrl}
         >
           <textarea
+            aria-label='title of audio upload'
             style={{
               color: `${fontColor}`,
             }}
@@ -166,6 +167,7 @@ function CustomizePlayer() {
           />
 
           <textarea
+            aria-label='subtitle of audio upload'
             style={{
               color: `${fontColor}`,
             }}
@@ -176,7 +178,12 @@ function CustomizePlayer() {
           />
         </Player>
 
-        <textarea className='embed-url-textarea' rows={3} value={embedUrl} />
+        <textarea
+          aria-label='embeddable audio widget url'
+          className='embed-url-textarea'
+          rows={3}
+          value={embedUrl}
+        />
       </div>
       <Toaster />
     </>
