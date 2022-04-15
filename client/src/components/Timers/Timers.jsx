@@ -1,7 +1,7 @@
 import React from 'react'
-import './ControlPanel.css'
+import './Timers.css'
 
-function ControlPanel({ duration, currentTime, style }) {
+function Timers({ duration, currentTime, style }) {
   function secondsToHms(seconds) {
     if (!seconds) return '00m 00s'
 
@@ -21,8 +21,8 @@ function ControlPanel({ duration, currentTime, style }) {
       min = `0${min}`
     }
 
-    if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)}h ${min}m ${sec}s`
+    if (parseInt(hours) > 0) {
+      return `${parseInt(hours)}h ${min}m ${sec}s`
     }
     if (min == 0) {
       return `00m ${sec}s`
@@ -32,7 +32,7 @@ function ControlPanel({ duration, currentTime, style }) {
 
   return (
     <>
-      <div className='control-panel'>
+      <div className='timers-container'>
         <div style={style} className='timer'>
           {secondsToHms(currentTime)}
         </div>
@@ -43,4 +43,4 @@ function ControlPanel({ duration, currentTime, style }) {
     </>
   )
 }
-export default ControlPanel
+export default Timers

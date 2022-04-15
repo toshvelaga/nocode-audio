@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { BsArrowClockwise, BsArrowCounterclockwise } from 'react-icons/bs'
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa'
 import Slider from '../Slider/Slider'
-import ControlPanel from '../Controls/ControlPanel'
+import Timers from '../Timers/Timers'
 import './Player.css'
 
 const Player = (props) => {
@@ -101,9 +101,7 @@ const Player = (props) => {
             onChange={onChange}
           />
           <div>
-            <ControlPanel
-              play={play}
-              isPlaying={isPlaying}
+            <Timers
               duration={duration}
               currentTime={currentTime}
               style={{ color: props.fontColor }}
