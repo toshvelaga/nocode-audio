@@ -39,6 +39,10 @@
   background: none;
 }
 
+.play-button:hover {
+  opacity: 0.8;
+}
+
 .controls-container {
   display: flex;
   margin-top: 1rem;

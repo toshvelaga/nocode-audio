@@ -18,7 +18,13 @@ body {
 }
 
 .submit-button:hover {
-  background-color: #7c42da;
+  opacity: 0.8;
+}
+
+.customize-player-container {
+  margin-left: 330px;
+  margin-top: 5rem;
+  width: 60%;
 }
 
 .title,
@@ -74,10 +80,4 @@ body {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.customize-player-container {
-  margin-left: 330px;
-  margin-top: 5rem;
-  width: 60%;
 }
