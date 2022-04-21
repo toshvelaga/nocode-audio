@@ -1,4 +1,4 @@
-# [Nocode Audio Player](https://audioplayr.netlify.app/)
+# Nocode Audio Player
 
 <img width="1113" alt="Screen Shot 2022-04-13 at 5 08 10 AM" src="https://user-images.githubusercontent.com/38474161/163168339-a5d6418d-75b0-4782-abfa-2532abd0d201.png">
 
